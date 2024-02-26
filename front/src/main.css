@@ -1,0 +1,31 @@
+/* main.css */
+body{
+    overflow: hidden;
+}
+.fade-enter {
+    opacity: 0;
+}
+
+.fade-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in-out; /* Adjust the duration and easing as needed */
+}
+
+.fade-exit {
+    opacity: 1;
+}
+
+.fade-exit-active {
+    opacity: 0;
+    transition: opacity 500ms ease-in-out; /* Adjust the duration and easing as needed */
+}
+/* main.css */
+
+.app {
+    opacity: 1;
+    transition: opacity 500ms ease-in-out;
+}
+
+.app.transitioning {
+    opacity: 0;
+}
