@@ -25,7 +25,7 @@ export default class ProjectController {
                 return;
             }
             res.status(500).send({
-                "msg":e.msg
+                "msg":"error"
             })
         }
     }
