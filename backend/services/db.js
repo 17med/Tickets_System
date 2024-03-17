@@ -4,8 +4,7 @@ import { createClient } from 'redis';
 
 export default class db{
     static async redisconnect(){
-        db.redisclient = createClient();
-
+        db.redisclient = createClient()
         db.redisclient.on('error', err => console.log('Redis Client Error', err));
 
         await db.redisclient.connect();

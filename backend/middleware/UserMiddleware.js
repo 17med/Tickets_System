@@ -14,7 +14,7 @@ export default class UserMiddleware {
         }
     }
     static async signIn(req,res,next){
-        if(await Auth.islogin(req)){
+        if(await Auth.islogin(req)===false){
             res.status(401).send({"msg":"not authorized"})
             return;
         }else{

@@ -5,13 +5,14 @@ import { linearProgressClasses } from '@mui/material/LinearProgress';
 import {useEffect, useState} from "react";
 import styled from "styled-components";
 import axios from "axios";
-
+import AddUser from "../../Elements/Users/AddUser.tsx";
 
 
 export default function Users(){
-
+    const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(true);
     const [data,setdata]=useState([])
+    const [refrech,setrefrech]=useState(false);
     useEffect(() => {
         async function getdata(){
         const x=await axios.get("http://localhost/api/user/getall",{ withCredentials: true })
@@ -19,7 +20,7 @@ export default function Users(){
             setLoading(false);
         }
         getdata();
-    }, []);
+    }, [refrech]);
     return(<>
     {loading == true ? <LinearProgress size={40}
                                        thickness={4} style={{marginTop:"-30px",marginLeft:"-55px",width:"105%"}} sx={{
@@ -34,6 +35,7 @@ export default function Users(){
 
 
     }}  /> :<>
+        <AddUser setrefrech={()=>{setrefrech(!refrech)}} open={open} setopen={setOpen}/>
         <br/>
         <table style={{width:"100%",marginLeft:"10px"}}>
             <tr>
@@ -41,7 +43,7 @@ export default function Users(){
                     <TextField label="username" fullWidth={true}/>
                 </td>
                 <td>
-                    <IconButton size="large"  aria-label="Example">
+                    <IconButton size="large"  aria-label="Example" onClick={()=>{setOpen(true)}}>
                         <AddIcon/>
                     </IconButton>
                 </td>
@@ -49,5 +51,5 @@ export default function Users(){
             </table>
             <br/>
 
-        <UsersList data={data}/></>}</>)
+        <UsersList  data={data}/></>}</>)
 }

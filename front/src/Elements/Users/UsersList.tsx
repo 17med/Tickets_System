@@ -52,14 +52,14 @@ export default function  Tickets(props:any){
             <TableContainer>
                 <Table sx={{minWidth: 650, maxWidth: "99%"}} style={{border: "0px solid", borderRadius: "100px"}}
                        aria-label="simple table">
-                    <TableHead style={{backgroundColor: "#1e1e1e"}}>
+                    <TableHead style={{backgroundColor: "#333333"}}>
                         <TableRow>
                             <TableCell style={{color: "white"}}>UserID</TableCell>
-                            <TableCell style={{color: "white"}} align="center">username</TableCell>
+                            <TableCell style={{color: "white"}} align="center">Username</TableCell>
 
 
-                            <TableCell style={{color: "white"}} align="center">name</TableCell>
-                            <TableCell align="center" style={{color: "white"}}>isadmin</TableCell>
+                            <TableCell style={{color: "white"}} align="center">Name</TableCell>
+                            <TableCell align="center" style={{color: "white"}}>IsAdmin</TableCell>
 
                         </TableRow>
                     </TableHead>
