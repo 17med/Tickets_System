@@ -5,11 +5,13 @@ import db from "./services/db.js"
 import cookieParser  from 'cookie-parser';
 import CORS from "cors";
 import Auth from "./services/Auth.js";
-import helmet from "helmet"
+import helmet from "helmet";
+import csrf from "csurf";
 dotenv.config();
-
+var csrfProtect = csrf({ cookie: true })
 
 const app=express();
+app.use(csrfProtect, (req, res, next) => {next();});
 db.connect();
 db.redisconnect();
 app.use(helmet())
