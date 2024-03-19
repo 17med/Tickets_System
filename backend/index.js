@@ -8,10 +8,10 @@ import Auth from "./services/Auth.js";
 import helmet from "helmet";
 import csrf from "csurf";
 dotenv.config();
-var csrfProtect = csrf({ cookie: true })
+
 
 const app=express();
-app.use(csrfProtect, (req, res, next) => {next();});
+
 db.connect();
 db.redisconnect();
 app.use(helmet())
@@ -23,7 +23,8 @@ app.use(CORS({origin: 'http://localhost:5173', // replace with your frontend ori
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
-app.use(cookieParser(process.env.secret))
+app.use(cookieParser({secert:process.env.secret}))
+
 app.use(MainRoute);
 app.listen(process.env.PORT,()=>{
     console.log(`server start on port :${process.env.PORT}`)

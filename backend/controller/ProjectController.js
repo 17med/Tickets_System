@@ -2,6 +2,8 @@
 import projectModel from "../Model/ProjectModel.js";
 import mongoose from "mongoose";
 import {json} from "express";
+import Auth from "../services/Auth.js";
+import TicketModel from "../Model/TicketModel.js";
 export default class ProjectController {
 
     static async Insert(req,res){
@@ -49,7 +51,9 @@ export default class ProjectController {
         }
     }
     static async GetAll(req,res){
+
         const reslt=await projectModel.find();
+        if(await Auth.isadmin(req)){
         const tb=[]
         reslt.forEach((e)=>{
             const c=JSON.parse(JSON.stringify(e))
@@ -60,7 +64,19 @@ export default class ProjectController {
         })
     
         console.log(req.cookies)
-        res.cookie('name', 'express').send(tb);
+        res.send(tb);}
+        else{
+            const res2=await TicketModel.find({"userId":(await Auth.getData(req.cookies.auth)).id})
+            const tb=[]
+            res2.forEach((e)=>{
+                const c=JSON.parse(JSON.stringify(e))
+                delete c["__v"]
+                c["id"]=c._id;
+                delete c["_id"]
+                tb.push(c)
+            })
+            res.send(tb);
+        }
     }
 
     static async Update(req,res) {

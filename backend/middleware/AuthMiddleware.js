@@ -12,7 +12,7 @@ export default class AuthMiddleware{
 
     static  async isadmin(req,res,next) {
 
-        console.log(req.cookies)
+
         if(await Auth.islogin(req)){
 
 

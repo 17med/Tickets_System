@@ -47,7 +47,7 @@ async function getdata(setloading,setstate,setname,setisadmin,nav){
     }
     else{
 
-
+        console.log("islogin mel app "+x.data.msg);
     }
     setloading(false);
 }
