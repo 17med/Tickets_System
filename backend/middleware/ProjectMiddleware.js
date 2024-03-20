@@ -4,7 +4,7 @@ export  default class ProjectMiddleware{
     static insert(req,res,next){
      const verif=(req)=>{
 
-            return req.body.name!==undefined&& req.body.name.length>2 && req.body.description!==undefined;
+            return req.body.name!==undefined&& req.body.name!==undefined && req.body.name.length>2 && req.body.description!==undefined;
         }
      if(!verif(req)){
          res.status(400).send({"msg":"bad request"})

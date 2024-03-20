@@ -4,8 +4,7 @@ export default class Auth{
     static cookieConfig={
         httpOnly: true,
         secure: true,
-        maxAge: 3600000,
-        //signed: true
+        maxAge: 3600000
     }
     static async islogin(req){
 
