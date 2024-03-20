@@ -64,7 +64,7 @@ export default class ProjectController {
         })
     
         console.log(req.cookies)
-        res.type("json").send(tb);}
+        res.type("json").send({"data":tb});}
         else{
             const res2=await TicketModel.find({"userId":(await Auth.getData(req.cookies.auth)).id})
             const tb=[]
