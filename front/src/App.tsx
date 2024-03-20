@@ -7,10 +7,29 @@ import Projects from './Pages/dashboard/Projects.tsx';
 import Users from "./Pages/dashboard/Users.tsx";
 import Tickets from "./Pages/dashboard/Tickets.tsx"
 import NavBar from "./Elements/Navbar.tsx";
-import {AppBar, CircularProgress, Drawer, Typography} from "@mui/material";
+import {AppBar, CircularProgress, createTheme, Drawer, ThemeProvider, Typography} from "@mui/material";
 import styled from "styled-components";
 import axios, {AxiosResponse} from "axios";
-
+const theme=createTheme({
+    palette: {
+        primary: {
+            main: '#333333',
+            light: '#333333',
+            dark: '#333333',
+            action: {
+                hover: '#333333',
+                selected: '#333333',
+            }
+        },
+        secondary: {
+            main: '#ffffff',
+            action: {
+                hover: '#333333',
+                selected: '#333333',
+            }
+        },
+    },
+});
 const drawerWidth = 240;
 
 const Container = styled.div`
@@ -68,6 +87,7 @@ getdata(setloading,setlogin,setname,setisadmin,nav);
     }, [refrech]);
     return (
         <>
+            <ThemeProvider theme={theme}>
             {loading?<div style={{
                     height:"90vh",
 
@@ -95,9 +115,9 @@ getdata(setloading,setlogin,setname,setisadmin,nav);
 
                         <Routes>
                         <Route path={"/dashboard"} >
-                            <Route index element={<Dashboard name={name}/>}/>
-                            <Route path={"project"} element={<Projects />}/>
-                            <Route path={"tickets"} element={<Tickets/>}/>
+                            <Route index element={<Dashboard name={name} />}/>
+                            <Route path={"project"} element={<Projects isadmin={isadmin} />}/>
+                            <Route path={"tickets"} element={<Tickets isadmin={isadmin}/>}/>
                             {isadmin==true?<Route path={"users"} element={<Users/>}/>:<></>}
                         </Route>
                             <Route path="*" element={<h1>404</h1>} />
@@ -149,7 +169,7 @@ getdata(setloading,setlogin,setname,setisadmin,nav);
                 </Routes>
             </BrowserRouter>
         </>*/}
-        </>
+            </ThemeProvider> </>
     );
 }
 

@@ -9,12 +9,17 @@ import helmet from "helmet";
 import csrf from "csurf";
 dotenv.config();
 
-
+var csrfProtection = csrf({ cookie: true });
 const app=express();
 
 db.connect();
 db.redisconnect();
+
 app.use(helmet())
+app.locals={
+    age:"18",
+    auth:["https://github.com/17med","https://github.com/arfaouikarim"]
+}
 app.use(CORS({origin: 'http://localhost:5173', // replace with your frontend origin
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,

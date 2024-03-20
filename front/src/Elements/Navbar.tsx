@@ -75,7 +75,7 @@ export default function Navbar(props:any){
                 </NavItem>
 
                 {props.admin===true?
-                <NavItem button onClick={()=>{
+                <NavItem button color={"primary"} onClick={()=>{
                     props.nav("/dashboard/users")
                 }}>
                     <NavIcon>

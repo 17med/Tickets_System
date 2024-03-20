@@ -8,7 +8,7 @@ import axios from "axios";
 import AddProject from "../../Elements/Projects/AddProject.tsx";
 
 
-export default function Projects(){
+export default function Projects({isadmin}:any){
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(true);
     const [data,setdata]=useState([])
@@ -40,14 +40,19 @@ export default function Projects(){
             <br/>
             <table style={{width:"100%",marginLeft:"10px"}}>
                 <tr>
-                    <td style={{width:"95%"}}>
-                        <TextField label="username" fullWidth={true}/>
-                    </td>
-                    <td>
-                        <IconButton size="large"  aria-label="Example" onClick={()=>{setOpen(true)}}>
-                            <AddIcon/>
-                        </IconButton>
-                    </td>
+                    {isadmin ?<>
+                            <td style={{width: "100%"}}>
+                                <TextField label="username" fullWidth={true}/>
+                            </td>
+                            <td>
+                                <IconButton size="large" aria-label="Example" onClick={()=>{setOpen(true)}}>
+                                    <AddIcon/>
+                                </IconButton>
+                            </td></>
+                        :<td style={{width:"100%"}}>
+                            <TextField label="username" style={{width:"97.5%"}}/>
+                        </td>
+                    }
                 </tr>
             </table>
             <br/>

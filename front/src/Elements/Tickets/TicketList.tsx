@@ -4,106 +4,79 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import {Chip} from "@mui/material"
-//ts-ignore
-function Elements(props:any){
-    const x=[];
-    for(var i=0;i<props.list.length;i++){
-        x.push(
-            <TableRow>
-                <TableCell>
-                    {props.list[i].name}
-                </TableCell>
-                <TableCell align="center">
-                    {props.list[i].state}
-                </TableCell>
-
-                <TableCell align="center">
-
-                    <Chip
-                        sx={{
-
-                            '& .MuiChip-label': {
-                                display: 'block',
-                                whiteSpace: 'normal',
-                            },
-                        }}
-                        size="small"
-                        label={props.list[i].type}
-                        />
-                </TableCell>
-                <TableCell align="center">
-                    {props.list[i].Project}
-                </TableCell>
-                <TableCell align="center">
-                    {props.list[i].User}
-                </TableCell>
-                <TableCell align="center">
-                    {props.list[i].startdt}
-                </TableCell>
-                <TableCell align="right">
-                    {props.list[i].enddt}
-                </TableCell>
-            </TableRow>
-        )
+import {Button, Chip, LinearProgress, Tooltip} from "@mui/material"
+import {useEffect, useState} from "react";
+import { red } from '@mui/material/colors';
+function l(x:string){
+    if(x.length>8){
+        const r=x.substring(0, 8)
+        return r+".."
     }
+    else{
+        return x;
+    }
+}
+//ts-ignore
+function Elememnt(props){
+
+    // @ts-ignore
+
+    return (<>
+        <TableRow>
+            <TableCell><Tooltip title={props.id}>{l(props.id)}</Tooltip></TableCell>
+            <TableCell align="center">{props.project}</TableCell>
+            <TableCell align="center">{props.title}</TableCell>
+            <TableCell align="center"><Tooltip title={props.date_end.toString().replace("T"," ").replace("Z","")}>{props.date_end.toString().split("T")[0]}</Tooltip></TableCell>
+            <TableCell align="center">{props.type}</TableCell>
+            <TableCell align="center">{props.state}</TableCell>
+            <TableCell align="center"><Button style={{backgroundColor:"#333333"}} variant={"contained"}>more</Button></TableCell>
+
+
+
+        </TableRow></>)
+}
+function Elist(props){
+
+    const x=[];
+    console.log("props",props.arrayE);
+    if(props.arrayE!==undefined){
+    props.arrayE.forEach((e:any)=>{
+        x.push(
+            <Elememnt id={e.id} project={e.projectname} title={e.title} date_end={e.date_end} type={e.type} state={e.state}/>
+        );
+    })}
+
     return x;
 }
 export default function  Tickets(props:any){
+
+    useEffect(() => {
+
+    }, []);
     // @ts-ignore
     return (
-        <TableContainer >
-            <Table sx={{ minWidth: 650,maxWidth:"99%" }} style={{border:"0px solid",borderRadius:"100px"}} aria-label="simple table">
-                <TableHead style={{backgroundColor:"#1e1e1e"}}>
-                    <TableRow>
-                        <TableCell style={{color:"white"}}>TicketID</TableCell>
-                        <TableCell style={{color:"white"}} align="center">State</TableCell>
+        <>
 
-                        <TableCell style={{color:"white"}} align="center">Type</TableCell>
-                        <TableCell style={{color:"white"}} align="center">Project</TableCell>
-                        <TableCell align="center" style={{color:"white"}}>User</TableCell>
-                        <TableCell align="center" style={{color:"white"}}>Start Date&nbsp;</TableCell>
-                        <TableCell align="right" style={{color:"white"}}>End Date&nbsp;</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    <Elements list={[{
-                        name:"ahmed",
-                        state:"mezlt",
-                        type:"ss",
-
-                        Project:"mm",
-                        "User":"ll",
-                        startdt:"2023-04-05",
-                        enddt:"2023-04-25"
+            <TableContainer>
+                <Table sx={{minWidth: 650, maxWidth: "99%"}} style={{border: "0px solid", borderRadius: "100px"}}
+                       aria-label="simple table">
+                    <TableHead style={{backgroundColor: "#333333"}}>
+                        <TableRow>
+                            <TableCell style={{color: "white"}}>TicketID</TableCell>
+                            <TableCell style={{color: "white"}} align="center">Project</TableCell>
+                            <TableCell style={{color: "white"}} align="center">Title</TableCell>
 
 
-
-                    },{
-                        name:"ahmed",
-                        state:"mezlt",
-                        type:"sssslksks",
-                        Project:"mm",
-                        "User":"ll",
-                        startdt:"2023-04-05",
-                        enddt:"2023-04-25"
-
-
-
-                    },{
-                        name:"ahmed",
-                        state:"mezlt",
-                        type:"ss",
-                        Project:"mm",
-                        "User":"ll",
-                        startdt:"2023-04-05",
-                        enddt:"2023-04-25"
-
-
-
-                    }]}/>
-                </TableBody>
-            </Table>
-        </TableContainer>
+                            <TableCell style={{color: "white"}} align="center">Date end</TableCell>
+                            <TableCell style={{color: "white"}} align="center">type</TableCell>
+                            <TableCell align="center" style={{color: "white"}}>state</TableCell>
+                            <TableCell align="center" style={{color: "white"}}></TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        <Elist arrayE={props.data.data}/>
+                    </TableBody>
+                </Table>
+            </TableContainer></>
     )
 }

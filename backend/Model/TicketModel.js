@@ -3,6 +3,7 @@ const Schema=mongoose.Schema;
 const SchemaTicket=new Schema({
     "userId":String,
     "projectId":String,
+    "title":String,
     "date_crt":{type:Date,default:Date.now},
     "date_end":Date,
     "type":String,
