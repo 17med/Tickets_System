@@ -40,7 +40,11 @@ catch (e) {
             res.clearCookie("Auth").status(400).send({"msg":"user not found"})
         }
         else{
-            res.cookie("auth", await Auth.login(x._id,x.username,x.isadmin), Auth.cookieConfig).send({"msg":true})
+            const rsx=await Auth.login(x._id,x.username,x.isadmin);
+
+
+            res.cookie("Authorization",rsx , Auth.cookieConfig)
+            res.json({"msg":true})
         }
     }
     static async signIn(req,res){

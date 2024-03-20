@@ -7,16 +7,18 @@ export default class Auth{
         maxAge: 3600000
     }
     static async islogin(req){
+        
 
-        if(req.cookies.auth==undefined){
-            //res.clearCookie('auth').status(401).send({"msg":"not authorized"})
+
+        if(req.cookies.Authorization==undefined){
+            //res.clearCookie('Authorization').status(401).send({"msg":"not Authorizationorized"})
             return false;
         }
         else{
-            if(await Auth.verify(req.cookies.auth)===false){
+            if(await Auth.verify(req.cookies.Authorization)===false){
                 return false;
             }
-            if(await db.redisclient.get(req.cookies.auth)===null){
+            if(await db.redisclient.get(req.cookies.Authorization)===null){
                 return false;
             }
             return true;
@@ -24,15 +26,15 @@ export default class Auth{
     }
     static async isadmin(req){
 
-        if(req.cookies.auth==undefined){
-            //res.clearCookie('auth').status(401).send({"msg":"not authorized"})
+        if(req.cookies.Authorization==undefined){
+            //res.clearCookie('Authorization').status(401).send({"msg":"not Authorizationorized"})
             return false;
         }
         else{
-            if(await Auth.verify(req.cookies.auth)===false){
+            if(await Auth.verify(req.cookies.Authorization)===false){
                 return false;
             }
-            const x=await Auth.getData(req.cookies.auth)
+            const x=await Auth.getData(req.cookies.Authorization)
             return x.isadmin;
         }
     }
