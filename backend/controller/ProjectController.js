@@ -62,20 +62,28 @@ export default class ProjectController {
             delete c["_id"]
             tb.push(c)
         })
+
     
         console.log(req.cookies)
         res.type("json").send({"data":tb});}
         else{
             const res2=await TicketModel.find({"userId":(await Auth.getData(req.cookies.auth)).id})
-            const tb=[]
+            const listOfIds=[];
             res2.forEach((e)=>{
+                listOfIds.push(e.projectId)
+            })
+            const reslt2=await projectModel.find({ _id: { $in: listOfIds } });
+
+            const tb=[]
+            reslt2.forEach((e)=>{
+
                 const c=JSON.parse(JSON.stringify(e))
                 delete c["__v"]
                 c["id"]=c._id;
                 delete c["_id"]
                 tb.push(c)
             })
-            res.send(tb);
+            res.type("json").send({"data":tb});
         }
     }
 
