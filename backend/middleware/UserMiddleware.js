@@ -7,7 +7,7 @@ export default class UserMiddleware {
             return;
         }else{
             if(req.body.username===undefined || req.body.password==undefined){
-                res.status(500).send({"msg":"bad request"})
+                res.status(400).send({"msg":"bad request"})
                 return;
             }
             next()
@@ -19,7 +19,7 @@ export default class UserMiddleware {
             return;
         }else{
             if(req.body.username===undefined || req.body.password==undefined || req.body.name===undefined){
-                res.status(500).send({"msg":"bad request"})
+                res.status(400).send({"msg":"bad request"})
                 return;
             }
             next()
@@ -41,7 +41,7 @@ export default class UserMiddleware {
         else{
             if(!(req.body.id!==undefined && mongoose.isValidObjectId(req.body.id)===true) ){
 
-                res.status(500).send({"msg":"bad request"})
+                res.status(400).send({"msg":"bad request"})
                 return;
             }
             const x=await Auth.getData(req.cookies.auth);
@@ -58,7 +58,7 @@ export default class UserMiddleware {
         }
         else{
             if(!(req.body.id!==undefined && mongoose.isValidObjectId(req.body.id)===true) ){
-                res.status(500).send({"msg":"bad request"})
+                res.status(400).send({"msg":"bad request"})
                 return;
             }
             const x=await Auth.getData(req.cookies.auth);

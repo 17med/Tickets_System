@@ -4,18 +4,11 @@ import UserModel from "../Model/UserModel.js";
 export default class TicketController {
     static async Insert(req, res) {
         try {
-            const c=await ProjectModel.findById(req.body.projectId);
-            if(c==null){
-                res.status(500).send({"msg":"bad request"})
-                return;
-            }
-            const c1=await  UserModel.findById(req.body.userId);
-            if(c1==null){
-                res.status(500).send({"msg":"bad request"})
-                return;
-            }
+
             var j=JSON.parse(JSON.stringify(req.body))
-            j.state="";
+            if(j.data_end===undefined){
+                j.data_end=new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000).toISOString();
+            }
             const tickets=new TicketModel(req.body);
             await tickets.save()
             res.status(200).send({"msg": true })

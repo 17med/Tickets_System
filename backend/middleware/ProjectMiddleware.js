@@ -7,7 +7,7 @@ export  default class ProjectMiddleware{
             return req.body.name!==undefined&& req.body.name.length>2 && req.body.description!==undefined;
         }
      if(!verif(req)){
-         res.status(500).send({"msg":"bad request"})
+         res.status(400).send({"msg":"bad request"})
         return ;
      }
      next()
@@ -18,7 +18,7 @@ export  default class ProjectMiddleware{
             return req.params.id!==undefined
         }
         if(!verif(req)){
-            res.status(500).send({"msg":"bad request"})
+            res.status(400).send({"msg":"bad request"})
             return;
         }
         next();
@@ -28,7 +28,7 @@ export  default class ProjectMiddleware{
     }
     static update(req,res,next){
         if(req.body.id===undefined){
-            res.status(500).send({"msg":"bad request"})
+            res.status(400).send({"msg":"bad request"})
             return;
         }
         try{
@@ -39,7 +39,7 @@ export  default class ProjectMiddleware{
         }
         catch (e) {
             console.log(e.toString())
-            res.status(500).send({"msg":"bad request"})
+            res.status(400).send({"msg":"bad request"})
             return ;
         }
 

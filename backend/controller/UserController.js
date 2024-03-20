@@ -50,7 +50,7 @@ catch (e) {
             res.send({"msg":true})
         }
         catch (e) {
-            res.status(500).send({"msg":"bad request"})
+            res.status(400).send({"msg":"bad request"})
         }
     }
     static async logout(req,res){

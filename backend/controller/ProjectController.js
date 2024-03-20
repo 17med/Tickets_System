@@ -20,13 +20,13 @@ export default class ProjectController {
         }
         catch (e) {
             if(e.toString().indexOf("duplicate")){
-                res.status(500).send({
+                res.status(400).send({
                     "msg":"projecct exist"
                 })
 
                 return;
             }
-            res.status(500).send({
+            res.status(400).send({
                 "msg":"error"
             })
         }
