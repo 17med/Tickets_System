@@ -13,7 +13,7 @@ export default class db{
     static isconnceted=false
     static redisclient=null;
     static connect(){
-        mongoose.connect(process.env.url).then(()=>{
+        mongoose.connect(process.env.urldb).then(()=>{
             this.isconnceted=true;
             console.log(this.isconnceted)
         }).catch((e)=>{
