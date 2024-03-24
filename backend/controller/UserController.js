@@ -4,7 +4,7 @@ import userModel from "../Model/UserModel.js";
 export default class UserController{
     static async getall(req,res){
         try{
-            const id=(await Auth.getData(req.cookies.auth)).id;
+            const id=(await Auth.getData(req.cookies.Authorization)).id;
             const x=await userModel.find();
             var x2=x.filter((e)=>String(e.id)!=String(id))
             x2=x2.map((e1)=>{
@@ -23,13 +23,13 @@ catch (e) {
 }
     }
     static async islogin(req,res){
-
+        
         if((await Auth.islogin(req))===false){
 
         res.clearCookie("auth").send({"msg":await Auth.islogin(req),"msg2":await Auth.isadmin(req)})
         }
         else{
-            const x=await Auth.getData(req.cookies.auth);
+            const x=await Auth.getData(req.cookies.Authorization);
 
             res.send({"msg":await Auth.islogin(req),"msg2":await Auth.isadmin(req),"name":x.username})
         }
@@ -43,7 +43,7 @@ catch (e) {
             const rsx=await Auth.login(x._id,x.username,x.isadmin);
 
 
-            res.cookie("Authorization",rsx , Auth.cookieConfig)
+            res.cookie("Authorization",rsx, Auth.cookieConfig)
             res.json({"msg":true})
         }
     }
@@ -58,7 +58,7 @@ catch (e) {
         }
     }
     static async logout(req,res){
-        await Auth.logout(req.cookies.auth);
+        await Auth.logout(req.cookies.Authorization);
         res.clearCookie("auth").send({"msg":"done"})
     }
     static async UpdateSomeone(req,res){

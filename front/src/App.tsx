@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from 'react';
-import {Routes, BrowserRouter, Route, Navigate, NavLink, useNavigate} from 'react-router-dom';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import {useEffect, useState} from 'react';
+import {Routes, Route, useNavigate} from 'react-router-dom';
+
 import Login from './Pages/Login/Login.tsx';
 import Dashboard from './Pages/dashboard/Dashboard.tsx';
 import Projects from './Pages/dashboard/Projects.tsx';
 import Users from "./Pages/dashboard/Users.tsx";
 import Tickets from "./Pages/dashboard/Tickets.tsx"
 import NavBar from "./Elements/Navbar.tsx";
-import {AppBar, CircularProgress, createTheme, Drawer, ThemeProvider, Typography} from "@mui/material";
+import {AppBar, CircularProgress, createTheme, Drawer, ThemeProvider} from "@mui/material";
 import styled from "styled-components";
 import axios, {AxiosResponse} from "axios";
 const theme=createTheme({
@@ -16,17 +16,11 @@ const theme=createTheme({
             main: '#333333',
             light: '#333333',
             dark: '#333333',
-            action: {
-                hover: '#333333',
-                selected: '#333333',
-            }
+
         },
         secondary: {
             main: '#ffffff',
-            action: {
-                hover: '#333333',
-                selected: '#333333',
-            }
+
         },
     },
 });
@@ -53,7 +47,7 @@ const Content = styled.div`
     flex-grow: 1;
     padding: 20px;
 `;
-async function getdata(setloading,setstate,setname,setisadmin,nav){
+async function getdata(setloading:any,setstate:any,setname:any,setisadmin:any,nav:any){
 
     const  x:AxiosResponse=await axios.get("http://localhost/api/user/islogin",{ withCredentials: true })
     console.log("islogin mel app "+x.data.msg);

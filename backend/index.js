@@ -4,9 +4,9 @@ import MainRoute from "./view/mainRoute.js";
 import db from "./services/db.js"
 import cookieParser  from 'cookie-parser';
 import CORS from "cors";
-import Auth from "./services/Auth.js";
+
 import helmet from "helmet";
-import csrf from "csurf";
+//import csrf from "csurf";
 dotenv.config();
 
 //var csrfProtection = csrf({ cookie: true });
@@ -31,13 +31,9 @@ app.use(CORS({
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
 app.use(cookieParser({secert:process.env.secret}))
-app.use((req,res,next)=>{
-    res.header("Access-Control-Allow-Credentials", true);
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-
-    next();
-})
+app.use(express.static('dist'))
 app.use(MainRoute);
-app.listen(process.env.PORT,()=>{
+
+app.listen(process.env.PORT,"0.0.0.0",()=>{
     console.log(`server start on port :${process.env.PORT}`)
 } )

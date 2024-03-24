@@ -10,7 +10,7 @@ export default class TicketController {
             if(j.date_end===undefined){
                 j.date_end=new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000);
             }
-            console.log(j);
+
             const tickets=new TicketModel(j);
             await tickets.save()
             res.status(200).send({"msg": true })
@@ -64,7 +64,7 @@ export default class TicketController {
         res.send({"data": tb})
     }
     else{
-        const x = await TicketModel.find({userId:(await Auth.getData(req.cookies.auth)).id});
+        const x = await TicketModel.find({userId:(await Auth.getData(req.cookies.Authorization)).id});
         const project=await ProjectModel.find();
         const tb=[]
         x.forEach((e)=>{
@@ -75,9 +75,26 @@ export default class TicketController {
             delete ls["userId"];
             delete ls["_id"];
             tb.push(ls)
+            console.log(tb)
         })
         res.send({"data": tb})
     }
+
+    }
+    static async getdatatoselect(req,res){
+        const project=await ProjectModel.find();
+        const users=await UserModel.find();
+        const tb1=[];
+        project.forEach((e)=>{
+
+            tb1.push({id:e._id,label:e.name,value:e._id})
+        })
+        const tb2=[];
+    users.forEach((e)=>{
+        if(e.isadmin==false){
+            tb2.push({id:e._id,label:e.name,value:e._id})}
+        })
+        res.send({"project":tb1,"user":tb2})
 
     }
 }

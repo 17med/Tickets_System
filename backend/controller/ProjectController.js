@@ -67,7 +67,7 @@ export default class ProjectController {
         console.log(req.cookies)
         res.type("json").send({"data":tb});}
         else{
-            const res2=await TicketModel.find({"userId":(await Auth.getData(req.cookies.auth)).id})
+            const res2=await TicketModel.find({"userId":(await Auth.getData(req.cookies.Authorization)).id})
             const listOfIds=[];
             res2.forEach((e)=>{
                 listOfIds.push(e.projectId)

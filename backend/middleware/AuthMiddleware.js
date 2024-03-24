@@ -21,7 +21,7 @@ export default class AuthMiddleware{
             res.clearCookie('auth').status(401).send({"msg":"not authorized"})
             return;
         }
-        const x = await Auth.getData(req.cookies.auth);
+        const x = await Auth.getData(req.cookies.Authorization);
 
         if (x.isadmin === true) {
             next()

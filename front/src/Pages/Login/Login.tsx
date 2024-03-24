@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {TextField, Button, Container, Typography, Paper, CircularProgress} from '@mui/material';
 import React, {useEffect, useState} from "react";
 import axios, {AxiosResponse} from "axios";

@@ -44,7 +44,7 @@ export default class UserMiddleware {
                 res.status(400).send({"msg":"bad request"})
                 return;
             }
-            const x=await Auth.getData(req.cookies.auth);
+            const x=await Auth.getData(req.cookies.Authorization);
             if(x.isadmin==false){
                 res.status(401).send({"msg":"not authorized"})
             }
@@ -61,7 +61,7 @@ export default class UserMiddleware {
                 res.status(400).send({"msg":"bad request"})
                 return;
             }
-            const x=await Auth.getData(req.cookies.auth);
+            const x=await Auth.getData(req.cookies.Authorization);
             if(req.body.id!=x.id){
                 res.status(401).send({"msg":"not authorized"})
                 return;

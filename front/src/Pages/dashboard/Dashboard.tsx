@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
 
 
-const Dashboard = (props) => {
+
+const Dashboard = (props:any) => {
 
     return (
         <>

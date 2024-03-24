@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -26,9 +27,11 @@ function Elememnt(props){
             <TableCell><Tooltip title={props.id}>{l(props.id)}</Tooltip></TableCell>
             <TableCell align="center">{props.project}</TableCell>
             <TableCell align="center">{props.title}</TableCell>
+            {props.username!==undefined?<TableCell align="center"><Tooltip title={"65dc85b81182ba891b9999f8"}>{props.username}</Tooltip></TableCell>
+:<></>}
             <TableCell align="center"><Tooltip title={props.date_end.toString().replace("T"," ").replace("Z","")}>{props.date_end.toString().split("T")[0]}</Tooltip></TableCell>
             <TableCell align="center">{props.type}</TableCell>
-            <TableCell align="center">{props.state}</TableCell>
+            <TableCell align="center"><Chip label={props.state}></Chip></TableCell>
             <TableCell align="center"><Button style={{backgroundColor:"#333333"}} variant={"contained"}>more</Button></TableCell>
 
 
@@ -42,7 +45,7 @@ function Elist(props){
     if(props.arrayE!==undefined){
     props.arrayE.forEach((e:any)=>{
         x.push(
-            <Elememnt id={e.id} project={e.projectname} title={e.title} date_end={e.date_end} type={e.type} state={e.state}/>
+            <Elememnt id={e.id} project={e.projectname}  username={e.username}  title={e.title} date_end={e.date_end} type={e.type} state={e.state}/>
         );
     })}
 
@@ -65,8 +68,9 @@ export default function  Tickets(props:any){
                             <TableCell style={{color: "white"}}>TicketID</TableCell>
                             <TableCell style={{color: "white"}} align="center">Project</TableCell>
                             <TableCell style={{color: "white"}} align="center">Title</TableCell>
-
-
+                            {props.isadmin===true?
+                            <TableCell style={{color: "white"}} align="center">User</TableCell>
+                            :<></>}
                             <TableCell style={{color: "white"}} align="center">Date end</TableCell>
                             <TableCell style={{color: "white"}} align="center">type</TableCell>
                             <TableCell align="center" style={{color: "white"}}>state</TableCell>
@@ -74,7 +78,7 @@ export default function  Tickets(props:any){
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        <Elist arrayE={props.data.data}/>
+                        <Elist   arrayE={props.data.data}/>
                     </TableBody>
                 </Table>
             </TableContainer></>

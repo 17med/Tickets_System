@@ -1,3 +1,4 @@
+// @ts-nocheck
 import ProjectList from "../../Elements/Projects/ProjectList.tsx"
 import {IconButton, LinearProgress, TextField} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';

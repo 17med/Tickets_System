@@ -1,10 +1,13 @@
+// @ts-nocheck
 import TicketsList from "../../Elements/Tickets/TicketList.tsx"
 import {IconButton, TextField} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import {useEffect, useState} from "react";
+import AddTicket from "../../Elements/Tickets/AddTicket.tsx";
 import axios from "axios";
-export default  function Tickets({isadmin}){
+export default  function Tickets({isadmin}:any){
     const [open, setOpen] = useState(false);
+    //@ts-ignore
     const [loading, setLoading] = useState(true);
     const [data,setdata]=useState([])
     const [refrech,setrefrech]=useState(false);
@@ -12,7 +15,7 @@ export default  function Tickets({isadmin}){
         async function getdata(){
             const x=await axios.get("http://localhost/api/ticket/getall",{ withCredentials: true })
             setdata(x.data);
-
+            console.log(x.data);
             setLoading(false);
         }
         getdata();
@@ -24,11 +27,12 @@ export default  function Tickets({isadmin}){
         <tr>
 
             {isadmin ?<>
+                <AddTicket open={open} setopen={setOpen} setrefrech={()=>{setrefrech(!refrech)}}/>
                 <td style={{width: "100%"}}>
                     <TextField label="username" fullWidth={true}/>
                 </td>
                 <td>
-                    <IconButton size="large" aria-label="Example">
+                    <IconButton size="large" aria-label="Example" onClick={()=>{setOpen(true)}}>
                         <AddIcon/>
                     </IconButton>
                 </td></>
@@ -39,7 +43,7 @@ export default  function Tickets({isadmin}){
         </tr>
     </table>
             <br/>
-            <TicketsList data={data}/>
+            <TicketsList isadmin={isadmin} data={data}/>
         </>
     )
 }

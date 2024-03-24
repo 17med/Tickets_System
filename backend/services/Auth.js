@@ -56,6 +56,7 @@ export default class Auth{
         await db.redisclient.del(token);
     }
     static async getData(token){
+
         const bytes =await  CryptoJS.AES.decrypt(token, process.env.secret);
         const originalText = bytes.toString(CryptoJS.enc.Utf8);
         return JSON.parse(originalText);

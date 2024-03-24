@@ -1,5 +1,6 @@
+// @ts-nocheck
 import Profile from "./Profile.tsx";
-import {List, ListItem, ListItemIcon, ListItemText, N} from "@mui/material";
+import {List, ListItem, ListItemIcon, ListItemText} from "@mui/material";
 import InboxIcon from "@mui/icons-material/Inbox";
 import BusinessIcon from "@mui/icons-material/Business";
 import GroupIcon from "@mui/icons-material/Group";
@@ -7,7 +8,7 @@ import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
 import LogoutIcon from "@mui/icons-material/Logout";
 
 import styled from "styled-components";
-import {Navigate, NavLink} from "react-router-dom";
+
 import axios from "axios";
 import {useState} from "react";
 
