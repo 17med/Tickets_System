@@ -34,6 +34,6 @@ app.use(cookieParser({secert:process.env.secret}))
 app.use(express.static('dist'))
 app.use(MainRoute);
 
-app.listen(process.env.PORT,"0.0.0.0",()=>{
+app.listen(process.env.PORT,"20.111.1.11",()=>{
     console.log(`server start on port :${process.env.PORT}`)
 } )
