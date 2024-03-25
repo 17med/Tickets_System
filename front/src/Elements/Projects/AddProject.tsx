@@ -48,7 +48,7 @@ export default function AddProject({open,setopen,setrefrech}){
         try{
             setState("loading");
             setopen(false);
-            await axios.post("https://localhost/api/project/add",{
+            await axios.post("/api/project/add",{
 
                 name:gettext(name),
                 description:gettext(description)

@@ -45,7 +45,7 @@ export default function AddUser({open,setopen,setrefrech}:any){
         try{
             setState("loading");
             setopen(false);
-            await axios.post("https://localhost/api/user/signin",{
+            await axios.post("/api/user/signin",{
                 username:gettext(username),
                 name:gettext(name),
                 password:gettext(password)

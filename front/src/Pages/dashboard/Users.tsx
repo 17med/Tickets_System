@@ -16,7 +16,7 @@ export default function Users(){
     const [refrech,setrefrech]=useState(false);
     useEffect(() => {
         async function getdata(){
-        const x=await axios.get("https://localhost/api/user/getall",{ withCredentials: true })
+        const x=await axios.get("/api/user/getall",{ withCredentials: true })
             setdata(x.data.data)
             setLoading(false);
         }

@@ -38,7 +38,7 @@ export default function Navbar(props:any){
     const [logout, setLogout] = useState(false);
 
     const actLogout = async () => {
-        await axios.get("https://localhost/api/user/logout", { withCredentials: true });
+        await axios.get("/api/user/logout", { withCredentials: true });
 
         props.refrechpage();
     }

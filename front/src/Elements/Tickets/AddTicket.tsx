@@ -8,7 +8,7 @@ import axios from "axios";
 export default function AddProject({open,setopen,setrefrech}:any){
     useEffect(() => {
         const r=async ()=>{
-            const x=await axios.get("https://localhost/api/ticket/getdatatoselect",{ withCredentials: true })
+            const x=await axios.get("/api/ticket/getdatatoselect",{ withCredentials: true })
             setdata(x.data);
         }
         r();
@@ -75,7 +75,7 @@ export default function AddProject({open,setopen,setrefrech}:any){
             allempty();
             setopen(false);
 
-            await axios.post("https://localhost/api/ticket/add",jl,{ withCredentials: true })
+            await axios.post("/api/ticket/add",jl,{ withCredentials: true })
                     setState("Done");
             setrefrech();
 

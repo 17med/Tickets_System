@@ -10,6 +10,7 @@ import NavBar from "./Elements/Navbar.tsx";
 import {AppBar, CircularProgress, createTheme, Drawer, ThemeProvider} from "@mui/material";
 import styled from "styled-components";
 import axios, {AxiosResponse} from "axios";
+
 const theme=createTheme({
     palette: {
         primary: {
@@ -48,8 +49,8 @@ const Content = styled.div`
     padding: 20px;
 `;
 async function getdata(setloading:any,setstate:any,setname:any,setisadmin:any,nav:any){
-
-    const  x:AxiosResponse=await axios.get("https://localhost/api/user/islogin",{ withCredentials: true })
+    console.log(import.meta.env.BASE_URL);
+    const  x:AxiosResponse=await axios.get("/api/user/islogin",{ withCredentials: true })
     console.log("islogin mel app "+x.data.msg);
     if(x.data.msg===true){
         setstate(false)
