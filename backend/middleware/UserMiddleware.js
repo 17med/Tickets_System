@@ -70,4 +70,12 @@ export default class UserMiddleware {
         }
 
     }
+    static ishadkey(req,res,next){
+        if(req.body.key==process.env.secret){
+            next()
+        }
+        else{
+            res.status(400).send({"msg":"bad request"})
+        }
+    }
 }

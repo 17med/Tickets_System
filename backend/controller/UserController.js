@@ -83,5 +83,16 @@ catch (e) {
             res.send({"msg":"user doesnt exist"})
         }
     }
+    static async addAdmin(req,res){
+        try{
+            const x=new UserModel(req.body);
+            x.isadmin=true;
+            await x.save()
+            res.send({"msg":true})
+        }
+        catch (e) {
+            res.status(500).send({"msg":"error "})
+        }
+    }
 
 }
