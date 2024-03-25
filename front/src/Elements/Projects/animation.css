@@ -1,0 +1,12 @@
+.growLeft {
+    animation: growLeft 0.3s ease-in-out;
+}
+
+@keyframes growLeft {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}

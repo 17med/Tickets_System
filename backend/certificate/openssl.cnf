@@ -1,0 +1,20 @@
+[ req ]
+default_bits       = 2048
+default_md         = sha256
+distinguished_name = req_distinguished_name
+[ req_distinguished_name ]
+# Describe the Subject (ie the origanisation).
+# The first 6 below could be shortened to: C ST L O OU CN
+# The short names are what are shown when the certificate is displayed.
+# Eg the details below would be shown as:
+#    Subject: C=UK, ST=Hertfordshire, L=My Town, O=Some Organisation, OU=Some Department, CN=www.example.com/emailAddress=bofh@example.com
+
+# Leave as long names as it helps documentation
+
+countryName=		tn
+stateOrProvinceName=	Ticket system
+localityName=		My Town
+organizationName=	17med & karim
+organizationalUnitName=	IT
+commonName=		soon
+emailAddress=		soon
