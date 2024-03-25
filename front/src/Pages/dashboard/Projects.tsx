@@ -16,7 +16,7 @@ export default function Projects({isadmin}:any){
     const [refrech,setrefrech]=useState(false);
     useEffect(() => {
         async function getdata(){
-            const x=await axios.get("http://localhost/api/project/",{ withCredentials: true })
+            const x=await axios.get("https://localhost/api/project/",{ withCredentials: true })
             setdata(x.data);
 
             setLoading(false);

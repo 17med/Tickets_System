@@ -8,7 +8,7 @@ import Verificator from "../../Elements/Verificator.tsx";
 async function login(name,password,refrech){
     try{
         console.log(name+" "+password)
-    const x=await axios.post("http://localhost/api/user/login",{
+    const x=await axios.post("https://localhost/api/user/login",{
         "username":name,
         "password":password
     },{ withCredentials: true })

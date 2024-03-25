@@ -49,7 +49,7 @@ const Content = styled.div`
 `;
 async function getdata(setloading:any,setstate:any,setname:any,setisadmin:any,nav:any){
 
-    const  x:AxiosResponse=await axios.get("http://localhost/api/user/islogin",{ withCredentials: true })
+    const  x:AxiosResponse=await axios.get("https://localhost/api/user/islogin",{ withCredentials: true })
     console.log("islogin mel app "+x.data.msg);
     if(x.data.msg===true){
         setstate(false)

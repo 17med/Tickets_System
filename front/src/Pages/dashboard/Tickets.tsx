@@ -13,7 +13,7 @@ export default  function Tickets({isadmin}:any){
     const [refrech,setrefrech]=useState(false);
     useEffect(() => {
         async function getdata(){
-            const x=await axios.get("http://localhost/api/ticket/getall",{ withCredentials: true })
+            const x=await axios.get("https://localhost/api/ticket/getall",{ withCredentials: true })
             setdata(x.data);
             console.log(x.data);
             setLoading(false);

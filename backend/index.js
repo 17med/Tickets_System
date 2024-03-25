@@ -4,8 +4,9 @@ import MainRoute from "./view/mainRoute.js";
 import db from "./services/db.js"
 import cookieParser  from 'cookie-parser';
 import CORS from "cors";
-
+import https  from 'https';
 import helmet from "helmet";
+import fs from "fs";
 //import csrf from "csurf";
 dotenv.config();
 
@@ -15,13 +16,17 @@ const app=express();
 db.connect();
 db.redisconnect();
 
-app.use(helmet())
+app.use(helmet(
+    {
+        contentSecurityPolicy: false,
+    }
+))
 app.locals={
     age:"18",
     auth:["https://github.com/17med","https://github.com/arfaouikarim"]
 }
 app.use(CORS({
-    origin: 'http://localhost:5173',
+    origin: 'https://192.168.1.15',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
     optionsSuccessStatus: 204,
@@ -33,7 +38,12 @@ app.use(express.json())
 app.use(cookieParser({secert:process.env.secret}))
 app.use(express.static('dist'))
 app.use(MainRoute);
-
-app.listen(process.env.PORT,"0.0.0.0",()=>{
+// Read SSL certificate and key
+const privateKey = fs.readFileSync('./certificate/private.key');
+const certificate = fs.readFileSync('./certificate/certificate.crt');
+const credentials = { key: privateKey, cert: certificate };
+const httpsServer = https.createServer(credentials, app);
+//openssl req -nodes -new -x509 -keyout server.key -out server.cert -config /path/to/openssl.cnf
+httpsServer.listen(process.env.PORT,"0.0.0.0",  () => {
     console.log(`server start on port :${process.env.PORT}`)
-} )
+});

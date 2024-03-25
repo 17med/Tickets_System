@@ -5,7 +5,7 @@ import {Navigate} from "react-router-dom";
 
 async function getdata(setloading,setgo,val,func){
 
-    const  x:AxiosResponse=await axios.get("http://localhost/api/user/islogin",{ withCredentials: true })
+    const  x:AxiosResponse=await axios.get("https://localhost/api/user/islogin",{ withCredentials: true })
     console.log(x.data);
     if(x.data.msg===val){
         setgo(true);
