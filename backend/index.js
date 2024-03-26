@@ -49,7 +49,7 @@ httpsServer.listen(process.env.PORT | 3000,"20.111.1.11",  () => {
     console.log(`server start on port :${process.env.PORT}`)
 });
 */
-const port = process.env.PORT | 3000;
-app.listen(process.env.PORT | 3000,()=>{
+const port = process.env.PORT | 8080;
+app.listen(process.env.PORT | 8080,"0.0.0.0",()=>{
     console.log(`server start on port :${port}`)
 })
