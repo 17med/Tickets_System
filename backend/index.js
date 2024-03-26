@@ -39,6 +39,7 @@ app.use(cookieParser({secert:process.env.secret}))
 app.use(express.static('dist'))
 app.use(MainRoute);
 // Read SSL certificate and key
+/*
 const privateKey = fs.readFileSync('./certificate/private.key');
 const certificate = fs.readFileSync('./certificate/certificate.crt');
 const credentials = { key: privateKey, cert: certificate };
@@ -47,3 +48,8 @@ const httpsServer = https.createServer(credentials, app);
 httpsServer.listen(process.env.PORT | 3000,"20.111.1.11",  () => {
     console.log(`server start on port :${process.env.PORT}`)
 });
+*/
+const port = process.env.PORT | 3000;
+app.listen(process.env.PORT | 3000,()=>{
+    console.log(`server start on port :${port}`)
+})
