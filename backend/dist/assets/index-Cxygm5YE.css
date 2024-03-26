@@ -1,1 +1,0 @@
-body{overflow:hidden}.fade-enter{opacity:0}.fade-enter-active{opacity:1;transition:opacity .5s ease-in-out}.fade-exit{opacity:1}.fade-exit-active{opacity:0;transition:opacity .5s ease-in-out}.app{opacity:1;transition:opacity .5s ease-in-out}.app.transitioning{opacity:0}
