@@ -20,7 +20,6 @@ export default function AddProject({open,setopen,setrefrech}:any){
     };
     const [state,setstate] = useState("");
     const [show,setshow] = useState(false);
-
     const [project,setproject]=useState({error:false,value:""});
     const [user,setuser]=useState({error:false,value:""});
     const [title,settitle]=useState({error:false,value:""});
