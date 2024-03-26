@@ -3,7 +3,7 @@ import {TextField, Button, Container, Typography, Paper, CircularProgress} from 
 import React, {useEffect, useState} from "react";
 import axios, {AxiosResponse} from "axios";
 import { Navigate } from "react-router-dom";
-import Verificator from "../../Elements/Verificator.tsx";
+
 
 async function login(name,password,refrech){
     try{

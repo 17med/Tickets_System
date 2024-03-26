@@ -10,6 +10,7 @@ import AddProject from "../../Elements/Projects/AddProject.tsx";
 
 
 export default function Projects({isadmin}:any){
+    console.log(window.location.href)
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(true);
     const [data,setdata]=useState([])

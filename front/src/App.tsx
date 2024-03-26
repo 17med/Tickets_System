@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {Routes, Route, useNavigate} from 'react-router-dom';
+import {Routes, Route, useNavigate,Navigate} from 'react-router-dom';
 
 import Login from './Pages/Login/Login.tsx';
 import Dashboard from './Pages/dashboard/Dashboard.tsx';
@@ -56,7 +56,8 @@ async function getdata(setloading:any,setstate:any,setname:any,setisadmin:any,na
         setstate(false)
         setname(x.data.name);
         setisadmin(x.data.msg2);
-        nav("/dashboard")
+
+        nav(window.location.pathname)
 
     }
     else{
@@ -91,9 +92,10 @@ getdata(setloading,setlogin,setname,setisadmin,nav);
                     display:"flex"
                 }}><CircularProgress  size={120} thickness={5}/></div>:
                 <>{islogin===true?
-
-
-                        <Login refrechpage={refrechpage}/>
+                    <Routes>
+                        <Route path={"/login"} element={<Login refrechpage={refrechpage}/>}/>
+                        <Route path="*" element={<Navigate to={"/login"}/>} />
+                    </Routes>
 
 
                     :
@@ -109,61 +111,21 @@ getdata(setloading,setlogin,setname,setisadmin,nav);
 
 
                         <Routes>
-                        <Route path={"/dashboard"} >
-                            <Route index element={<Dashboard name={name} />}/>
-                            <Route path={"project"} element={<Projects isadmin={isadmin} />}/>
-                            <Route path={"tickets"} element={<Tickets isadmin={isadmin}/>}/>
-                            {isadmin==true?<Route path={"users"} element={<Users/>}/>:<></>}
-                        </Route>
-                            <Route path="*" element={<h1>404</h1>} />
+                        <Route path={"/dashboard"} element={<Dashboard name={name} />} />
+
+
+                            <Route path={"/dashboard/project"} element={<Projects isadmin={isadmin} />}/>
+                            <Route path={"/dashboard/tickets"} element={<Tickets isadmin={isadmin}/>}/>
+                            {isadmin==true?<Route path={"/dashboard/users"} element={<Users/>}/>:<></>}
+
+
+                            <Route path="*" element={<Navigate to={"/dashboard"}/>} />
                         </Routes>
-                    
+
                 </Content>
             </Container>}</>}
 
-            {/*<><BrowserRouter>
-                <Routes>
-                    <Route
-                        path="/"
-                        element={
-                            <TransitionGroup>
-                                <CSSTransition
-                                    {...transitionSettings}
-                                >
-                                    <Home />
-                                </CSSTransition>
-                            </TransitionGroup>
-                        }
-                    />
-                    <Route path="/login" element={<Login />} />
-                    <Route
-                        path="/dashboard"
-                        element={
-                            <TransitionGroup>
-                                <CSSTransition
-                                    {...transitionSettings}
-                                >
-                                    <Dashboard />
-                                </CSSTransition>
-                            </TransitionGroup>
-                        }
-                    />
-                    <Route
-                        path="/dashboard/projects"
-                        element={
-                            <TransitionGroup>
-                                <CSSTransition
-                                    {...transitionSettings}
-                                >
-                                    <Projects />
-                                </CSSTransition>
-                            </TransitionGroup>
-                        }
-                    />
-                    <Route path="*" element={<NotFound />} />
-                </Routes>
-            </BrowserRouter>
-        </>*/}
+
             </ThemeProvider> </>
     );
 }

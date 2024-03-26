@@ -1,7 +1,7 @@
 // @ts-nocheck
 import axios, {AxiosResponse} from "axios";
 import React, {useEffect, useState} from "react";
-import {Navigate} from "react-router-dom";
+import {Navigate,useNavigate} from "react-router-dom";
 
 async function getdata(setloading,setgo,val,func){
 
@@ -27,6 +27,8 @@ export default function Verificator(props){
     const [go,setgo]=useState(false)
 
     useEffect(() => {
+        const x=useNavigate();
+        
         getdata(props.setLoading,setgo,props.val,props.func);
     }, []);
     return (
