@@ -38,7 +38,7 @@ app.use(express.json())
 app.use(cookieParser({secert:process.env.secret}))
 app.use(express.static('dist'))
 app.get("/api/dbsatete",(req,res)=>{
-    res.send({"state":db.isconnceted,"db":process.env.secret,"dbs":process.env.urldb,"pross":process.env})
+    res.send({"state":db.isconnceted})
 })
 app.use(MainRoute);
 
