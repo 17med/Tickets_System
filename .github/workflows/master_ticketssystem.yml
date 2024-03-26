@@ -25,6 +25,8 @@ jobs:
         run: |
           cd backend
           npm install
+          cd ../frontend/
+          npm install
           npm run build --if-present
           npm run test --if-present
 
