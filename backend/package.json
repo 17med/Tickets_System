@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon .",
     "run": "node .",
-    "build": "cd ../front && npm run build && cp dist/* ../backend/dist/ && cd ../back"
+    "build": "cd ../front && npm run build && cp ./dist/* ../backend/dist/ && cd ../backend"
   },
   "keywords": [],
   "author": "",
