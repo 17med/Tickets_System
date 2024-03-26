@@ -1,3 +1,6 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
 name: Build and deploy Node.js app to Azure Web App - ticketssystem
 
 on:
@@ -20,21 +23,18 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          cd front
-          npm install
-          cd ../backend
           npm install
           npm run build --if-present
-          
+          npm run test --if-present
 
       - name: Zip artifact for deployment
-        run: cd backend && zip release.zip ./* -r
+        run: zip release.zip ./* -r
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: node-app
-          path: backend/release.zip
+          path: release.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -57,9 +57,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_CCCE1FD5283E4F118B6F2D7E2228B6EC }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_C63CBED5D37649D6A35D3BDFCC98694F }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_3677C2C263EF48FBADCDE28CAB805B2E }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_32585632C80449ECA934698869F481B0 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_CC1B514D88FE43E3BB75C3DE12EE8416 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_242DE193C9404BC79D50EF455E3B6DE3 }}
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
@@ -68,3 +68,4 @@ jobs:
           app-name: 'ticketssystem'
           slot-name: 'Production'
           package: .
+          
