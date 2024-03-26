@@ -37,7 +37,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
 app.use(cookieParser({secert:process.env.secret}))
 app.use(express.static('dist'))
+app.get("/api/dbsatete",(req,res)=>{
+    res.send({state:db.state})
+})
 app.use(MainRoute);
+
 // Read SSL certificate and key
 /*
 const privateKey = fs.readFileSync('./certificate/private.key');
