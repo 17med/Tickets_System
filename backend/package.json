@@ -4,6 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "start": "node .",
     "dev": "nodemon .",
     "run": "node .",
     "build": "cd ../front && npm run build && mkdir -p ../backend/dist && cp -r ./dist/* ../backend/dist/ && cd ../backend "

@@ -44,6 +44,6 @@ const certificate = fs.readFileSync('./certificate/certificate.crt');
 const credentials = { key: privateKey, cert: certificate };
 const httpsServer = https.createServer(credentials, app);
 //openssl req -nodes -new -x509 -keyout server.key -out server.cert -config /path/to/openssl.cnf
-httpsServer.listen(process.env.PORT,"0.0.0.0",  () => {
+httpsServer.listen(process.env.PORT | 3000,"0.0.0.0",  () => {
     console.log(`server start on port :${process.env.PORT}`)
 });
