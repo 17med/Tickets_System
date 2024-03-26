@@ -12,4 +12,5 @@ router.get("/api/user/logout",UserController.logout)
 router.post("/api/user/updatesomone",UserMiddleware.UpdateSomeone,UserController.UpdateSomeone)
 router.post("/api/user/updatesomone",UserMiddleware.UpdateMe,UserController.UpdateMe)
 router.post("/api/user/addadmin",UserMiddleware.signIn,UserMiddleware.ishadkey,UserController.addAdmin)
+
 export default router;

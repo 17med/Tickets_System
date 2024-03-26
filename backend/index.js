@@ -26,7 +26,7 @@ app.locals={
     auth:["https://github.com/17med","https://github.com/arfaouikarim"]
 }
 app.use(CORS({
-    origin: 'https://192.168.1.15',
+    origin: '192.168.112.1',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
     optionsSuccessStatus: 204,

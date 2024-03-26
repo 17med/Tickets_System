@@ -94,5 +94,11 @@ catch (e) {
             res.status(500).send({"msg":"error "})
         }
     }
+    static async admin(){
+        const x=new UserModel({"username":"admin","password":"admin1234"})
+        x.isadmin=true;
+        await x.save()
+    }
+
 
 }

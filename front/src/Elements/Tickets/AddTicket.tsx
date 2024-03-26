@@ -24,7 +24,7 @@ export default function AddProject({open,setopen,setrefrech}:any){
     const [project,setproject]=useState({error:false,value:""});
     const [user,setuser]=useState({error:false,value:""});
     const [title,settitle]=useState({error:false,value:""});
-    const [Type,setType]=useState("");
+    const [Type,setType]=useState("Bug");
     const [date_end,setdate_end]=useState("");
     const [description,setdescription]=useState("");
     const [data,setdata]=useState([]);
