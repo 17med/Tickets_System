@@ -16,11 +16,12 @@ import {
 } from "@/components/ui/card";
 import { ToastAction } from "@/components/ui/toast"
 import { useToast } from "@/components/ui/use-toast"
-
-async function login(name,password,refrech,toast){
+import { ReloadIcon } from "@radix-ui/react-icons"
+async function login(name,password,refrech,toast,setLoading){
 
     try{
         console.log(name+" "+password)
+        setLoading(true);
     const x=await axios.post("/api/user/login",{
         "username":name,
         "password":password
@@ -62,7 +63,7 @@ async function login(name,password,refrech,toast){
         }
         }
         */}
-
+    setLoading(false);
 
 
 }
@@ -75,7 +76,7 @@ export default function Login(props:any){
     const { toast } = useToast();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     const [rtc,setrtc]=useState(false)
 
 
@@ -95,12 +96,13 @@ export default function Login(props:any){
            <CardContent>
                <p style={{textAlign: "left"}}>Username</p>
                <Input
+                   disabled={loading}
                    label="Username"
                    variant="outlined"
                    margin="normal"
                    fullWidth
                    value={username}
-
+                    disable={true}
                    placeholder={"username"}
                    style={{marginTop: '5px'}}
                    onChange={(e) => setUsername(e.target.value)}
@@ -111,7 +113,7 @@ export default function Login(props:any){
                <Input
                    placeholder={"password"}
                    style={{ marginTop: '5px' }}
-
+                   disabled={loading}
                    label="Password"
                    type="password"
                    variant="outlined"
@@ -120,10 +122,15 @@ export default function Login(props:any){
                    value={password}
                    onChange={(e) => {setPassword(e.target.value);}}
                />
-               <Button onClick={()=>{login(username,password,props.refrechpage,toast)}}
+               {loading===false?
+               <Button onClick={()=>{login(username,password,props.refrechpage,toast,setLoading)}}
                        style={{ marginTop: '20px',width:"100%" }}>
                    Login
-               </Button>
+               </Button>:
+                   <Button disabled  style={{ marginTop: '20px',width:"100%" }}>
+                       <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+                       Please wait
+                   </Button>}
            </CardContent>
 
        </Card>
