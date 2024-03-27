@@ -38,7 +38,7 @@ export default  function Tickets({isadmin}:any){
                     </IconButton>
                 </td></>
                 : <td style={{width: "100%"}}>
-                    <TextField label="username" style={{width: "99.5%"}}/>
+                    <Input label="username" style={{width: "99.5%"}}/>
                 </td>
             }
         </tr>

@@ -52,7 +52,7 @@ export default function Projects({isadmin}:any){
                                 </IconButton>
                             </td></>
                         :<td style={{width:"100%"}}>
-                            <TextField label="username" style={{width:"97.5%"}}/>
+                            <Input label="username" style={{width:"97.5%"}}/>
                         </td>
                     }
                 </tr>
