@@ -1,8 +1,14 @@
-import {Dialog, DialogContent, DialogTitle, TextField, Button, Snackbar, Alert} from '@mui/material';
+//@ts-nocheck
+import {Dialog, DialogContent, DialogTitle} from '@mui/material';
+import { Snackbar, Alert} from "@mui/material";
+import {Input} from "@/components/ui/input";
+import {Button} from "@/components/ui/button";
 import SaveIcon from '@mui/icons-material/Save';
 import CloseIcon from '@mui/icons-material/Close';
 import {useRef, useState} from "react";
 import axios from "axios";
+import {Label} from "@/components/ui/label";
+import { X,Save } from 'lucide-react';
 
 export default function AddUser({open,setopen,setrefrech}:any){
     const setState=(x:string)=>{
@@ -21,8 +27,10 @@ export default function AddUser({open,setopen,setrefrech}:any){
     const username=useRef(null);
 
     const gettext=(e:any)=>{
+
+
         //@ts-ignore
-        return e.current.querySelector("input").value
+        return e.current.value
     }
 
     const verif=async ()=>{
@@ -70,7 +78,7 @@ export default function AddUser({open,setopen,setrefrech}:any){
 
     }
     return (
-        <>
+        <div className={"z-10"}>
 
         <Snackbar
             className={"snackbar-grow-left"}
@@ -124,38 +132,35 @@ export default function AddUser({open,setopen,setrefrech}:any){
         </DialogTitle>
         <DialogContent>
 
-            <table style={{width: "400px", height: "200px"}}>
-                <tr>
-                    <td>
-                        <label>Username</label>
-                    </td>
-                    <td>
-                        <TextField onChange={()=>{seterror1(false)}} error={error1} ref={username}  label="username" fullWidth={true}/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label>Name</label>
-                    </td>
-                    <td>
-                        <TextField onChange={()=>{seterror2(false)}} error={error2} ref={name}  label="name" fullWidth={true}/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label>Password</label>
-                    </td>
-                    <td>
-                        <TextField onChange={()=>{seterror3(false)}} error={error3} label="password" fullWidth={true} type={"password"}
-                                 ref={password}  />
-                    </td>
-                </tr>
+            <div style={{width: "400px", height: "200px"}}>
+                <div className="grid w-full mt-2 max-w-sm items-center gap-1.5">
+                    <Label htmlFor="email">Username</Label>
 
 
-            </table>
-            <Button  style={{marginTop:"10px"}} variant="contained"  startIcon={<SaveIcon/>} color="success" onClick={()=>{verif()}} fullWidth={true}>save</Button>
-            <Button style={{marginTop:"10px"}} variant="contained" onClick={()=>{setopen(false)}}   startIcon={<CloseIcon/>} color="error" fullWidth={true}>cancel</Button>
+                <Input onChange={() => {
+                    seterror1(false)
+                }} error={error1} ref={username} placeholder={"usernames"} label="username" fullWidth={true}/>
+                </div>
+                <div className="grid w-full mt-2 max-w-sm items-center gap-1.5">
+                    <Label htmlFor="email">Name</Label>
+                <Input onChange={() => {
+                    seterror2(false)
+                }} error={error2} ref={name} placeholder={"name"} label="name" fullWidth={true}/>
+                </div>
+                <div className="grid w-full mt-2 max-w-sm items-center gap-1.5">
+                    <Label htmlFor="email">Password</Label>
+                <Input onChange={() => {
+                    seterror3(false)
+                }} error={error3} label="password" placeholder={"password"} fullWidth={true} type={"password"}
+                       ref={password}/>
+                </div>
+            </div>
+            <Button className={"w-full"} style={{marginTop: "10px"}} startIcon={<SaveIcon/>} color="success"
+                    onClick={() => {
+                        verif()
+                    }} fullWidth={true}><Save className="mr-2 h-4 w-4" />save</Button>
+            <Button className={"w-full"} style={{marginTop:"10px"}}  variant={"destructive"}  onClick={()=>{setopen(false)}}   startIcon={<CloseIcon/>} color="error" fullWidth={true}><X className="mr-2 h-4 w-4" />cancel</Button>
 
         </DialogContent></Dialog>
-            </>)
+            </div>)
 }

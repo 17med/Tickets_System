@@ -1,13 +1,19 @@
 // @ts-nocheck
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
+
 import {Button, Chip, LinearProgress, Tooltip} from "@mui/material"
 import {useEffect, useState} from "react";
 import { red } from '@mui/material/colors';
+import {
+    Table,
+    TableBody,
+    TableCaption,
+    TableCell,
+    TableFooter,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table"
 function l(x:string){
     if(x.length>8){
         const r=x.substring(0, 8)
@@ -63,20 +69,20 @@ export default function  Tickets(props:any){
             <TableContainer>
                 <Table sx={{minWidth: 650, maxWidth: "99%"}} style={{border: "0px solid", borderRadius: "100px"}}
                        aria-label="simple table">
-                    <TableHead style={{backgroundColor: "#333333"}}>
+                    <TableHeader style={{backgroundColor: "#333333"}}>
                         <TableRow>
-                            <TableCell style={{color: "white"}}>TicketID</TableCell>
-                            <TableCell style={{color: "white"}} align="center">Project</TableCell>
-                            <TableCell style={{color: "white"}} align="center">Title</TableCell>
+                            <TableHead style={{color: "white"}}>TicketID</TableHead>
+                            <TableHead style={{color: "white"}} align="center"  className={"text-center"}>Project</TableHead>
+                            <TableHead style={{color: "white"}} align="center"  className={"text-center"}>Title</TableHead>
                             {props.isadmin===true?
-                            <TableCell style={{color: "white"}} align="center">User</TableCell>
+                            <TableHead style={{color: "white"}} align="center"  className={"text-center"}>User</TableHead>
                             :<></>}
-                            <TableCell style={{color: "white"}} align="center">Date end</TableCell>
-                            <TableCell style={{color: "white"}} align="center">type</TableCell>
-                            <TableCell align="center" style={{color: "white"}}>state</TableCell>
-                            <TableCell align="center" style={{color: "white"}}></TableCell>
+                            <TableHead style={{color: "white"}} align="center"  className={"text-center"}>Date end</TableHead>
+                            <TableHead style={{color: "white"}} align="center"  className={"text-center"}>type</TableHead>
+                            <TableHead align="center" style={{color: "white"}}  className={"text-center"}>state</TableHead>
+                            <TableHead align="center" style={{color: "white"}}  className={"text-center"}></TableHead>
                         </TableRow>
-                    </TableHead>
+                    </TableHeader>
                     <TableBody>
                         <Elist   arrayE={props.data.data}/>
                     </TableBody>

@@ -1,13 +1,26 @@
 // @ts-nocheck
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
+
 import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
 import {Chip, LinearProgress, Tooltip} from "@mui/material"
 import {useEffect, useState} from "react";
+
+import {
+    ContextMenu,
+    ContextMenuContent,
+    ContextMenuItem,
+    ContextMenuTrigger,
+} from "@/components/ui/context-menu"
 import { red } from '@mui/material/colors';
+import {
+    Table,
+    TableBody,
+    TableCaption,
+    TableCell,
+    TableFooter,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table"
 function l(x:string){
     if(x.length>8){
         const r=x.substring(0, 8)
@@ -17,19 +30,35 @@ function l(x:string){
         return x;
     }
 }
+function MenuL({element}){
+    return(
+        <ContextMenu className={"w-full"}>
+            <ContextMenuTrigger>{element}</ContextMenuTrigger>
+            <ContextMenuContent>
+                <ContextMenuItem>Soon nchalah</ContextMenuItem>
+                <ContextMenuItem>Soon nchalah</ContextMenuItem>
+            </ContextMenuContent>
+        </ContextMenu>
+    );
+}
 //ts-ignore
 function Elememnt(props){
 
     return (<>
-        <TableRow>
+    <TableRow>
+
+
             <TableCell><Tooltip title={props.id}>{l(props.id)}</Tooltip></TableCell>
-            <TableCell align="center">{props.username}</TableCell>
-            <TableCell align="center">{props.name}</TableCell>
+            <TableCell align="center"><MenuL element={props.username}/></TableCell>
+            <TableCell align="center"><MenuL element={props.name}/></TableCell>
             <TableCell align="center">{props.isadmin?<Chip label="True" color="success"/>:<Chip label="False" color="error"/>}</TableCell>
 
 
 
-        </TableRow></>)
+
+
+    </TableRow>
+            </>)
 }
 function Elist(props){
 
@@ -53,20 +82,22 @@ export default function  Tickets(props:any){
             <TableContainer>
                 <Table sx={{minWidth: 650, maxWidth: "99%"}} style={{border: "0px solid", borderRadius: "100px"}}
                        aria-label="simple table">
-                    <TableHead style={{backgroundColor: "#333333"}}>
+                    <TableHeader style={{backgroundColor: "#333333"}}>
                         <TableRow>
-                            <TableCell style={{color: "white"}}>UserID</TableCell>
-                            <TableCell style={{color: "white"}} align="center">Username</TableCell>
+                            <TableHead style={{color: "white"}} >UserID</TableHead>
+                            <TableHead align="center" style={{color: "white"}} className={"text-center"}>Username</TableHead>
 
 
-                            <TableCell style={{color: "white"}} align="center">Name</TableCell>
-                            <TableCell align="center" style={{color: "white"}}>IsAdmin</TableCell>
+                            <TableHead  align="center" style={{color: "white"}} className={"text-center"}>Name</TableHead>
+                            <TableHead align="center" style={{color: "white"}} className={"text-center"}>IsAdmin</TableHead>
 
                         </TableRow>
-                    </TableHead>
+                    </TableHeader>
                     <TableBody>
+
                         <Elist arrayE={props.data}/>
-                    </TableBody>
+
+                        </TableBody>
                 </Table>
             </TableContainer></>
     )

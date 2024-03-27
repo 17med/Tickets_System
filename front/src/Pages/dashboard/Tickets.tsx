@@ -5,6 +5,7 @@ import AddIcon from "@mui/icons-material/Add";
 import {useEffect, useState} from "react";
 import AddTicket from "../../Elements/Tickets/AddTicket.tsx";
 import axios from "axios";
+import {Input} from "@/components/ui/input";
 export default  function Tickets({isadmin}:any){
     const [open, setOpen] = useState(false);
     //@ts-ignore
@@ -29,7 +30,7 @@ export default  function Tickets({isadmin}:any){
             {isadmin ?<>
                 <AddTicket open={open} setopen={setOpen} setrefrech={()=>{setrefrech(!refrech)}}/>
                 <td style={{width: "100%"}}>
-                    <TextField label="username" fullWidth={true}/>
+                    <Input label="username" placeholder={"name or id"} fullWidth={true}/>
                 </td>
                 <td>
                     <IconButton size="large" aria-label="Example" onClick={()=>{setOpen(true)}}>

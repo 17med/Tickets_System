@@ -7,7 +7,7 @@ import {useEffect, useState} from "react";
 import styled from "styled-components";
 import axios from "axios";
 import AddProject from "../../Elements/Projects/AddProject.tsx";
-
+import {Input} from "@/components/ui/input";
 
 export default function Projects({isadmin}:any){
     console.log(window.location.href)
@@ -44,7 +44,7 @@ export default function Projects({isadmin}:any){
                 <tr>
                     {isadmin ?<>
                             <td style={{width: "100%"}}>
-                                <TextField label="username" fullWidth={true}/>
+                                <Input label="username" placeholder={"name or id"} fullWidth={true}/>
                             </td>
                             <td>
                                 <IconButton size="large" aria-label="Example" onClick={()=>{setOpen(true)}}>

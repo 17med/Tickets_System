@@ -6,16 +6,18 @@ import BusinessIcon from "@mui/icons-material/Business";
 import GroupIcon from "@mui/icons-material/Group";
 import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
 import LogoutIcon from "@mui/icons-material/Logout";
-
+import {Button} from "@/components/ui/button";
 import styled from "styled-components";
-
+import {Home, Users,Building2,Ticket} from "lucide-react";
+import { NavLink } from "react-router-dom";
 import axios from "axios";
 import {useState} from "react";
+import {ExitIcon} from "@radix-ui/react-icons";
 
 const drawerWidth = 240;
 const DrawerPaper = styled.div`
     width: ${drawerWidth}px;
-    background-color: #333;
+    background-color: #111827;
     color: #fff;
     height: 100%;
     display: flex;
@@ -24,8 +26,9 @@ const DrawerPaper = styled.div`
 
 const NavItem = styled(ListItem)`
     color: #fff;
+
     &:hover {
-        background-color: #1565c0;
+        background-color: #000000;
     }
 `;
 
@@ -36,71 +39,69 @@ const NavIcon = styled(ListItemIcon)`
 //@ts-ignore
 export default function Navbar(props:any){
     const [logout, setLogout] = useState(false);
-
+    console.log(props.isadmin)
     const actLogout = async () => {
         await axios.get("/api/user/logout", { withCredentials: true });
 
         props.refrechpage();
     }
 
-    return (<>
+    return (
+        <>
         {props.hidden===false?
 
-        <DrawerPaper>
-            <Profile name={props.name} />
-            <List>
+            <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr] z-0">
+                <div className="hidden border-r bg-muted/40 md:block">
+                    <div className="flex h-full max-h-screen flex-col gap-2">
+                        <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
+                            <Profile name={props.name} isAdmin={props.isAdmin}/>
+                        </div>
+                        <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
+                            <NavLink
+                                to={"/dashboard"}
+                                className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                            >
+                                <Home className="h-4 w-4"/>
+                                Dashboard
+                            </NavLink>
 
-                <NavItem button style={{ marginTop: '10px' }} onClick={()=>{
-                    props.nav("/dashboard")
-                }}>
+                            {props.isadmin == true ?
+                                <NavLink
+                                    to={"/dashboard/users"}
+                                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                                >
+                                    <Users className="h-4 w-4"/>
+                                    Users
+                                </NavLink>
+                                : <></>}
+                            <NavLink
+                                to={"/dashboard/project"}
+                                className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                            >
+                                <Building2 className="h-4 w-4"/>
+                                Projects
+                            </NavLink>
+                            <NavLink
+                                to={"/dashboard/tickets"}
+                                className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                            >
+                                <Ticket className="h-4 w-4"/>
+                                Tickets
+                            </NavLink>
+
+                        </nav>
 
 
-                    <NavIcon>
-                        <InboxIcon  style={{ color: '#fff' }} />
-                    </NavIcon>
+                    </div>
+                    <div className="align-bottom my-auto -mt-12 ml-9">
+                        <Button onClick={actLogout} className={"w-5/6"}><ExitIcon className="mr-2 h-4 w-4" />logout</Button>
 
-                    <ListItemText style={{color:"white",
-                    textDecoration:"none"}} primary="Home" />
+                    </div>
+                </div>
 
-                </NavItem>
-                <NavItem button onClick={()=>{
-                    props.nav("/dashboard/project")
-                }}>
+            </div> : <><></>
+            </>}
+        </>)
 
-                    <NavIcon>
-                        <BusinessIcon style={{ color: '#fff' }} />
-                    </NavIcon>
+};
 
-                    <ListItemText style={{color:"white",textDecoration:"none"}} primary="Project" />
-
-                </NavItem>
-
-                {props.admin===true?
-                <NavItem button color={"primary"} onClick={()=>{
-                    props.nav("/dashboard/users")
-                }}>
-                    <NavIcon>
-                        <GroupIcon style={{ color: '#fff' }} />
-                    </NavIcon>
-                    <ListItemText primary="Users" />
-                </NavItem>
-                :<></>}
-                    <NavItem button onClick={()=>{
-                        props.nav("/dashboard/tickets")
-                    }}>
-                    <NavIcon>
-                        <ConfirmationNumberIcon style={{ color: '#fff' }} />
-                    </NavIcon>
-                    <ListItemText primary="Tickets" />
-                </NavItem>
-                <NavItem button onClick={actLogout}>
-                    <NavIcon>
-                        <LogoutIcon style={{ color: '#fff' }} />
-                    </NavIcon>
-                    <ListItemText primary="Log out" />
-                </NavItem>
-
-            </List>
-        </DrawerPaper>:<></>}
-    </>)
-}

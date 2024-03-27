@@ -1,14 +1,12 @@
 
-
-
 const Dashboard = (props:any) => {
 
     return (
         <>
 
-
-        <h1>hello {props.name}</h1>
+            <div className="text-center text-3xl">Hello <b>{props.name}</b></div>
         </>
+
     );
 };
 

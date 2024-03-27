@@ -7,8 +7,8 @@ import {useEffect, useState} from "react";
 import styled from "styled-components";
 import axios from "axios";
 import AddUser from "../../Elements/Users/AddUser.tsx";
-
-
+import {Input} from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton"
 export default function Users(){
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -22,8 +22,9 @@ export default function Users(){
         }
         getdata();
     }, [refrech]);
-    return(<>
-    {loading == true ? <LinearProgress size={40}
+    return(<div className={"z-10"}>
+    {loading == true ?<>
+        <LinearProgress size={40}
                                        thickness={4} style={{marginTop:"-30px",marginLeft:"-55px",width:"105%"}} sx={{
         [`&.${linearProgressClasses.colorPrimary}`]: {
             backgroundColor: '#333333',
@@ -35,13 +36,13 @@ export default function Users(){
         },
 
 
-    }}  /> :<>
+    }}  /> </>:<>
         <AddUser setrefrech={()=>{setrefrech(!refrech)}} open={open} setopen={setOpen}/>
         <br/>
         <table style={{width:"100%",marginLeft:"10px"}}>
             <tr>
                 <td style={{width:"95%"}}>
-                    <TextField label="username" fullWidth={true}/>
+                    <Input placeholder={"Name or Id"} label="username" fullWidth={true}/>
                 </td>
                 <td>
                     <IconButton size="large"  aria-label="Example" onClick={()=>{setOpen(true)}}>
@@ -52,5 +53,5 @@ export default function Users(){
             </table>
             <br/>
 
-        <UsersList  data={data}/></>}</>)
+        <UsersList  data={data}/></>}</div>)
 }

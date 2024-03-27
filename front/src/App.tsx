@@ -10,6 +10,8 @@ import NavBar from "./Elements/Navbar.tsx";
 import {AppBar, CircularProgress, createTheme, Drawer, ThemeProvider} from "@mui/material";
 import styled from "styled-components";
 import axios, {AxiosResponse} from "axios";
+import { Toaster } from "@/components/ui/toaster"
+import Bar from "@/Elements/Bar.tsx";
 
 const theme=createTheme({
     palette: {
@@ -25,13 +27,13 @@ const theme=createTheme({
         },
     },
 });
-const drawerWidth = 240;
+const drawerWidth = 270;
 
 const Container = styled.div`
     display: flex;
     height: 100vh;
     
-    background-color: #f4f4f4;
+    background-color:white;
 `;
 
 const StyledAppBar = styled(AppBar)`
@@ -51,7 +53,7 @@ const Content = styled.div`
 async function getdata(setloading:any,setstate:any,setname:any,setisadmin:any,nav:any){
     console.log(import.meta.env.BASE_URL);
     const  x:AxiosResponse=await axios.get("/api/user/islogin",{ withCredentials: true })
-    console.log("islogin mel app "+x.data.msg);
+
     if(x.data.msg===true){
         setstate(false)
         setname(x.data.name);
@@ -75,14 +77,25 @@ function App() {
     const [loading,setloading]=useState(true);
     const [isadmin,setisadmin]=useState(false);
     const [name,setname]=useState("ss");
-    const [refrech,setrefrech]=useState(0)
-    const refrechpage=()=>{setrefrech(refrech+1)}
-    const logout=()=>{setlogin(!false);setloading(false);setrefrech(0);}
+    const [refrech,setrefrech]=useState(false)
+    const refrechpage=()=>{setrefrech(!refrech)}
+    const actLogoutx = async () => {
+
+       const x:AxiosResponse= await axios.get("/api/user/logout", { withCredentials: true });
+        console.log(x)
+       if(x.status===200){
+       logout();}
+    }
+
+
+
+    const logout=()=>{setlogin(!false);setloading(false);setrefrech(!refrech);}
     useEffect(() => {
 getdata(setloading,setlogin,setname,setisadmin,nav);
     }, [refrech]);
     return (
-        <>
+        <div className={""}>
+            <Toaster />
             <ThemeProvider theme={theme}>
             {loading?<div style={{
                     height:"90vh",
@@ -104,19 +117,20 @@ getdata(setloading,setlogin,setname,setisadmin,nav);
 
                 </StyledAppBar>
                 <StyledDrawer variant="permanent">
-                    <NavBar refrechpage={logout} nav={nav} admin={isadmin} hidden={islogin} name={name} />
+                    <NavBar refrechpage={logout} nav={nav} isadmin={isadmin} hidden={islogin} name={name} />
                 </StyledDrawer>
+
 
                 <Content>
 
 
                         <Routes>
-                        <Route path={"/dashboard"} element={<Dashboard name={name} />} />
+                        <Route path={"/dashboard"} element={<><Bar logout={actLogoutx}/><br/><br/><Dashboard name={name} /></>} />
 
 
-                            <Route path={"/dashboard/project"} element={<Projects isadmin={isadmin} />}/>
-                            <Route path={"/dashboard/tickets"} element={<Tickets isadmin={isadmin}/>}/>
-                            {isadmin==true?<Route path={"/dashboard/users"} element={<Users/>}/>:<></>}
+                            <Route path={"/dashboard/project"} element={<><Bar logout={actLogoutx}/><br/><Projects isadmin={isadmin} /></>}/>
+                            <Route path={"/dashboard/tickets"} element={<><Bar logout={actLogoutx}/><br/><Tickets isadmin={isadmin}/></>}/>
+                            {isadmin==true?<Route path={"/dashboard/users"} element={<><Bar logout={actLogoutx}/><br/><Users/></>}/>:<></>}
 
 
                             <Route path="*" element={<Navigate to={"/dashboard"}/>} />
@@ -126,7 +140,7 @@ getdata(setloading,setlogin,setname,setisadmin,nav);
             </Container>}</>}
 
 
-            </ThemeProvider> </>
+            </ThemeProvider> </div>
     );
 }
 

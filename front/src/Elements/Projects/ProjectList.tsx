@@ -1,13 +1,21 @@
 // @ts-nocheck
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import {Button, Chip, LinearProgress, Tooltip} from "@mui/material"
+
+import { Chip, LinearProgress, Tooltip} from "@mui/material"
 import {useEffect, useState} from "react";
 import { red } from '@mui/material/colors';
+import {
+    Table,
+    TableBody,
+    TableCaption,
+    TableCell,
+    TableFooter,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table"
+import {Button} from "@/components/ui/button.tsx";
+
 function l(x:string){
     if(x.length>8){
         const r=x.substring(0, 8)
@@ -26,7 +34,7 @@ function Elememnt(props){
             <TableCell><Tooltip title={props.id}>{l(props.id)}</Tooltip></TableCell>
             <TableCell align="center">{props.name}</TableCell>
             <TableCell align="center"><Tooltip title={props.dataCrt.toString()}>{props.dataCrt.toString().split("T")[0]}</Tooltip></TableCell>
-            <TableCell align="center"><Button style={{backgroundColor:"#333333"}} variant={"contained"}>more</Button></TableCell>
+            <TableCell align="center"><Button  >more</Button></TableCell>
 
 
 
@@ -56,17 +64,17 @@ export default function  Tickets(props:any){
             <TableContainer>
                 <Table sx={{minWidth: 650, maxWidth: "99%"}} style={{border: "0px solid", borderRadius: "100px"}}
                        aria-label="simple table">
-                    <TableHead style={{backgroundColor: "#333333"}}>
+                    <TableHeader style={{backgroundColor: "#333333"}}>
                         <TableRow>
-                            <TableCell style={{color: "white"}}>ProjectID</TableCell>
-                            <TableCell style={{color: "white"}} align="center">Name</TableCell>
+                            <TableHead style={{color: "white"}} >ProjectID</TableHead>
+                            <TableHead style={{color: "white"}} align="center" className={"text-center"}>Name</TableHead>
 
 
-                            <TableCell style={{color: "white"}} align="center">Date creation</TableCell>
-                            <TableCell align="center" style={{color: "white"}}></TableCell>
+                            <TableHead style={{color: "white"}} align="center" className={"text-center"}>Date creation</TableHead>
+                            <TableHead align="center" style={{color: "white"}} className={"text-center"}></TableHead>
 
                         </TableRow>
-                    </TableHead>
+                    </TableHeader>
                     <TableBody>
                         <Elist arrayE={props.data.data}/>
                     </TableBody>
