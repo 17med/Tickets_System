@@ -11,34 +11,19 @@ export default class Auth{
 
 
         if(req.cookies.Authorization==undefined){
-            //res.clearCookie('Authorization').status(401).send({"msg":"not Authorizationorized"})
+
             return false;
         }
-        else{
-            if(await Auth.verify(req.cookies.Authorization)===false){
+        else {
+            if (await db.seearchtoken(req.cookies.Authorization) === false) {
                 return false;
-            try{
-
-            if(await db.redisclient.get(req.cookies.Authorization)===null){
-                return false;
-            }}
-            catch(e){
-                try{
-                    await db.redisconnect();
-                    if(await db.redisclient.get(req.cookies.Authorization)===null){
-                        return false;
-                    }
-
-                }
-                catch (e) {
-                return false;
-                }
-            }
+            } else {
+                return true;
 
             }
-            return true;
         }
-    }
+        }
+
     static async isadmin(req){
 
         if(req.cookies.Authorization==undefined){

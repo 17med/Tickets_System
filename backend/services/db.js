@@ -3,6 +3,14 @@ import { createClient } from 'redis';
 
 
 export default class db{
+
+    static async seearchtoken(tk){
+if(db.redisclient===null || db.redisclient.connected===false){
+    db.redisclient = null;
+    await db.redisconnect();
+    return db.redisclient.get(tk)!==null;
+}
+    }
     static async redisconnect(){
         db.redisclient = createClient({
             url:process.env.cashdb})
