@@ -15,7 +15,7 @@ export default class Auth{
             return false;
         }
         else {
-            if (await db.seearchtoken(req.cookies.Authorization) === false) {
+            if (await Auth.verify(req.cookies.Authorization) && await db.seearchtoken(req.cookies.Authorization) === false) {
                 return false;
             } else {
                 return true;
