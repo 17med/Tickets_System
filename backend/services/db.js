@@ -5,7 +5,7 @@ import { createClient } from 'redis';
 export default class db{
     static async redisconnect(){
         db.redisclient = createClient({
-            url:"redis://:qYhv2lF9GUdLrfZBmjvIrWA0YM5KcEFR@redis-13987.c3.eu-west-1-1.ec2.cloud.redislabs.com:13987"})
+            url:process.env.cashdb})
         db.redisclient.on('error', err => console.log('Redis Client Error', err));
 
         await db.redisclient.connect();

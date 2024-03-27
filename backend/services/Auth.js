@@ -17,9 +17,24 @@ export default class Auth{
         else{
             if(await Auth.verify(req.cookies.Authorization)===false){
                 return false;
-            }
+            try{
+
             if(await db.redisclient.get(req.cookies.Authorization)===null){
                 return false;
+            }}
+            catch(e){
+                try{
+                    await db.redisconnect();
+                    if(await db.redisclient.get(req.cookies.Authorization)===null){
+                        return false;
+                    }
+
+                }
+                catch (e) {
+                return false;
+                }
+            }
+
             }
             return true;
         }

@@ -12,7 +12,8 @@ const route=express.Router()
 route.use(Users)
 route.use(Projects)
 route.use(Tiketes)
-const indexPath = path.join(__dirname, '../dist', 'index.html');
+const indexPath = path.join(__dirname, '../dist', 'index' +
+    '.html');
 
 route.use((req, res) => {
     console.log(req.url);res.sendFile(indexPath);
