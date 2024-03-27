@@ -37,7 +37,7 @@ catch (e) {
     static async login(req,res){
         const x=await UserModel.findOne({username:req.body.username,"password":req.body.password})
         if(x==null){
-            res.clearCookie("Auth").status(400).send({"msg":"user not found"})
+            res.clearCookie("Authorization").status(400).send({"msg":"user not found"})
         }
         else{
             const rsx=await Auth.login(x._id,x.username,x.isadmin);
@@ -58,8 +58,9 @@ catch (e) {
         }
     }
     static async logout(req,res){
+        res.clearCookie("Authorization").send({"msg":"done"});
         await Auth.logout(req.cookies.Authorization);
-        res.clearCookie("auth").send({"msg":"done"})
+
     }
     static async UpdateSomeone(req,res){
         try{
