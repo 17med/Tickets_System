@@ -23,7 +23,7 @@ export default class AuthMiddleware{
         }
         const x = await Auth.getData(req.cookies.Authorization);
 
-        if (x.isadmin === true) {
+        if (await Auth.isadmin(req)===true) {
             next()
         } else {
             res.status(401).send({"msg": "not authorized"})

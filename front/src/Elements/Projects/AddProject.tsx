@@ -1,10 +1,14 @@
 // @ts-nocheck
-import {Dialog, DialogContent, DialogTitle, TextField, Button, Snackbar, Alert} from '@mui/material';
+import {Dialog, DialogContent, DialogTitle, TextField, Snackbar, Alert} from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import CloseIcon from '@mui/icons-material/Close';
 import {useRef, useState} from "react";
 import axios from "axios";
-
+import { Textarea } from "@/components/ui/textarea"
+import {Label} from "@/components/ui/label.tsx";
+import {Input} from "@/components/ui/input";
+import {Button} from "@/components/ui/button";
+import {Save, X} from "lucide-react";
 export default function AddProject({open,setopen,setrefrech}){
     const setState=(x:string)=>{
         setshow(true);
@@ -22,12 +26,9 @@ export default function AddProject({open,setopen,setrefrech}){
 
 
     const gettext=(e:any)=>{
-        //@ts-ignore
-        if(e.current.querySelector("input")==null){
-            return e.current.querySelector("textarea").value;
-        }
-        else{
-        return e.current.querySelector("input").value}
+
+
+        return e.current.value
     }
 
     const verif=async ()=>{
@@ -125,33 +126,33 @@ export default function AddProject({open,setopen,setrefrech}){
         <DialogTitle id="Create User">
             {"Create Project"}
         </DialogTitle>
-        <DialogContent>
+                <DialogContent>
+                    <div style={{width: "400px", height: "270px"}}>
+                        <div className="grid w-full mt-2 max-w-sm items-center gap-1.5">
+                            <Label htmlFor="email">Username</Label>
 
-            <table style={{width: "400px", height: "200px"}}>
-                <tr>
-                    <td>
-                        <label>Project Name</label>
-                    </td>
-                    <td>
-                        <TextField onChange={()=>{seterror1(false)}} error={error1} ref={name}  label="project name" fullWidth={true}/>
-                    </td>
-                </tr>
-                <tr>
-                    <td style={{verticalAlign: "top"}}>
-                        <label>Description</label>
-                    </td>
-                    <td>
-                    <TextField multiline
-                                   rows={4} onChange={()=>{seterror2(false)}} error={error2} ref={description}  label="description" fullWidth={true}/>
-                    </td>
-                </tr>
+                            <Input onChange={() => {
+                                seterror1(false)
+                            }} error={error1} ref={name} label="project name" fullWidth={true}/>
+                        </div>
+                        <div className="grid w-full mt-2 max-w-sm items-center gap-1.5">
+                            <Label htmlFor="email">Username</Label>
+                            <Textarea multiline
+                                       rows={4} onChange={() => {
+                                seterror2(false)
+                            }} error={error2} ref={description} label="description" fullWidth={true}/>
+                        </div>
 
+                            <Button className={"w-full"} style={{marginTop: "10px"}}  startIcon={<SaveIcon/>}
+                                    color="success" onClick={() => {
+                                verif()
+                            }} fullWidth={true}><Save className="mr-2 h-4 w-4" />save</Button>
+                            <Button className={"w-full"} style={{marginTop: "10px"}} variant={"destructive"} onClick={() => {
+                                setopen(false)
+                            }} startIcon={<CloseIcon/>} color="error" fullWidth={true}><X className="mr-2 h-4 w-4" />cancel</Button>
 
-
-            </table>
-            <Button  style={{marginTop:"10px"}} variant="contained"  startIcon={<SaveIcon/>} color="success" onClick={()=>{verif()}} fullWidth={true}>save</Button>
-            <Button style={{marginTop:"10px"}} variant="contained" onClick={()=>{setopen(false)}}   startIcon={<CloseIcon/>} color="error" fullWidth={true}>cancel</Button>
-
-        </DialogContent></Dialog>
-            </>)
+                    </div>
+                    </DialogContent></Dialog>
+        </>
+)
 }

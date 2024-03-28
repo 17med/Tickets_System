@@ -4,7 +4,8 @@ const SchemaUser=new Schema({
     "username":{type:String,unique:true},
     "password":String,
     "name":String,
-    "isadmin":{type:Boolean,default:false}
+    "isadmin":{type:Boolean,default:false},
+    "protected":{type:Boolean,default:false}
 
 })
 

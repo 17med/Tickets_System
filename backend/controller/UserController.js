@@ -2,11 +2,31 @@ import Auth from "../services/Auth.js";
 import UserModel from "../Model/UserModel.js";
 import userModel from "../Model/UserModel.js";
 export default class UserController{
+    static async Transformstate(req,res){
+        try{
+            const x=await UserModel.findById(req.body.id);
+            if(x==null){
+                res.status(400).send({"msg":"user not found"})
+            }
+            else{
+                if(x.protected===false){
+                x.isadmin=!x.isadmin;
+                await x.save()
+                res.send({"msg":"done"})
+            }else{
+                res.status(401).send({"msg":"user is protected"})
+                }
+            }
+        }
+        catch (e) {
+
+        }
+    }
     static async getall(req,res){
         try{
             const id=(await Auth.getData(req.cookies.Authorization)).id;
             const x=await userModel.find();
-            var x2=x.filter((e)=>String(e.id)!=String(id))
+            var x2=x.filter((e)=>String(e.id)!=String(id) && e.protected===false)
             x2=x2.map((e1)=>{
                 const e=JSON.parse(JSON.stringify(e1))
                 delete e.password;
@@ -101,5 +121,26 @@ catch (e) {
         await x.save()
     }
 
+    static async deleteUser(req,res){
+        try{
+            const x=await UserModel.findById(req.body.id);
+            if(x==null){
+                res.status(400).send({"msg":"user doesnt exist"})
+            }
+            else{
+                if(x.admin){
+                    res.status(400).send({"msg":"cant delete admin"})
+                }
+                else{
+                    await UserModel.findOneAndDelete({"_id":req.body.id})
+                    res.send({"msg":"done"})
+                }
+            }
+        }
+        catch (e) {
+            console.log(e.toString());
+            res.status(500).send({"msg":"error "})
+        }
+    }
 
 }

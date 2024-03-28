@@ -4,6 +4,15 @@ import TableContainer from '@mui/material/TableContainer';
 import {Chip, LinearProgress, Tooltip} from "@mui/material"
 import {useEffect, useState} from "react";
 
+import { useToast } from "@/components/ui/use-toast"
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import {
     ContextMenu,
     ContextMenuContent,
@@ -21,6 +30,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import axios from "axios";
 function l(x:string){
     if(x.length>8){
         const r=x.substring(0, 8)
@@ -32,8 +42,8 @@ function l(x:string){
 }
 function MenuL({element}){
     return(
-        <ContextMenu className={"w-full"}>
-            <ContextMenuTrigger>{element}</ContextMenuTrigger>
+        <ContextMenu className={"w-full"} style={{width:"100%"}}>
+            <ContextMenuTrigger className={"w-full"} style={{width:"100%"}}>{element}</ContextMenuTrigger>
             <ContextMenuContent>
                 <ContextMenuItem>Soon nchalah</ContextMenuItem>
                 <ContextMenuItem>Soon nchalah</ContextMenuItem>
@@ -41,23 +51,76 @@ function MenuL({element}){
         </ContextMenu>
     );
 }
+function SetAdmin({element,admin,id,setrefrech}){
+    const { toast } = useToast();
+    console.log(element)
+
+        const stf=async ()=> {
+            try {
+                const x = await axios.post("/api/user/state", {id: id}, {withCredentials: true})
+                if (admin === true) {
+                    toast({
+                        titel:"success",
+
+                        description:"User is now an admin"})
+                }
+
+        else
+            {
+                toast({
+                    titel:"success",
+
+                    description:"User is now a normal user"})
+
+            }
+                setrefrech()
+
+        }
+            catch (e) {
+
+                toast({title:"Error",description:"An error has occured",
+                    variant: "destructive"})
+
+
+
+        }
+    }
+    return(
+        <ContextMenu>
+            <ContextMenuTrigger >{element}</ContextMenuTrigger>
+            <ContextMenuContent>
+                {admin===true?
+                <ContextMenuItem onClick={stf}>Set Normal User</ContextMenuItem>
+:
+                    <ContextMenuItem onClick={stf}>Set Admin</ContextMenuItem>
+                }
+            </ContextMenuContent>
+        </ContextMenu>
+    );
+}
 //ts-ignore
 function Elememnt(props){
-
+    const id=props.id;
+    console.log(props.isadmin)
     return (<>
-    <TableRow>
+
+    <TableRow className={"w-full"}>
 
 
             <TableCell><Tooltip title={props.id}>{l(props.id)}</Tooltip></TableCell>
-            <TableCell align="center"><MenuL element={props.username}/></TableCell>
-            <TableCell align="center"><MenuL element={props.name}/></TableCell>
-            <TableCell align="center">{props.isadmin?<Chip label="True" color="success"/>:<Chip label="False" color="error"/>}</TableCell>
-
+            <TableCell align="center">{props.username}</TableCell>
+            <TableCell align="center">{props.name}</TableCell>
+            <TableCell align="center">{props.isadmin?<SetAdmin setrefrech={props.setrefrech} id={id} element={<Chip label="True" color="success"/>} i admin={true}/>:
+                <SetAdmin id={id} setrefrech={props.setrefrech} element={<Chip label="False" color="error" />}   admin={false}/>}
+            </TableCell>
 
 
 
 
     </TableRow>
+
+
+        <br/>
             </>)
 }
 function Elist(props){
@@ -65,7 +128,7 @@ function Elist(props){
     const x=[];
     props.arrayE.forEach((e:any)=>{
         x.push(
-            <Elememnt id={e.id} username={e.username} name={e.name} isadmin={e.isadmin}/>
+            <Elememnt id={e.id} username={e.username} name={e.name} isadmin={e.isadmin} setrefrech={props.setrefrech}/>
         );
     })
 
@@ -95,7 +158,7 @@ export default function  Tickets(props:any){
                     </TableHeader>
                     <TableBody>
 
-                        <Elist arrayE={props.data}/>
+                        <Elist arrayE={props.data} setrefrech={props.setrefrech}/>
 
                         </TableBody>
                 </Table>

@@ -12,7 +12,7 @@ import styled from "styled-components";
 import axios, {AxiosResponse} from "axios";
 import { Toaster } from "@/components/ui/toaster"
 import Bar from "@/Elements/Bar.tsx";
-
+import ProjectId from "@/Pages/dashboard/ProjectId.tsx";
 const theme=createTheme({
     palette: {
         primary: {
@@ -129,6 +129,7 @@ getdata(setloading,setlogin,setname,setisadmin,nav);
 
 
                             <Route path={"/dashboard/project"} element={<><Bar logout={actLogoutx}/><br/><Projects isadmin={isadmin} /></>}/>
+                            <Route path={"/dashboard/project/:id"} element={<><Bar logout={actLogoutx}/><br/><ProjectId isadmin={isadmin} /></>}/>
                             <Route path={"/dashboard/tickets"} element={<><Bar logout={actLogoutx}/><br/><Tickets isadmin={isadmin}/></>}/>
                             {isadmin==true?<Route path={"/dashboard/users"} element={<><Bar logout={actLogoutx}/><br/><Users/></>}/>:<></>}
 

@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import {json} from "express";
 import Auth from "../services/Auth.js";
 import TicketModel from "../Model/TicketModel.js";
+import UserModel from "../Model/UserModel.js";
 export default class ProjectController {
 
     static async Insert(req,res){
@@ -37,13 +38,51 @@ export default class ProjectController {
 
 
         const rest=await projectModel.findOne({"_id":stx})
-        if(rest===null){
+
+            if(rest===null){
             res.status(404).send({"msg":"not found"})
             return;
         }
+
         var ls=JSON.parse(JSON.stringify(rest));
         delete ls[ "__v"];
-        res.send(ls)
+        ls.id=ls._id;
+        delete ls._id;
+        if(await Auth.isadmin(req)){
+            const tik=await TicketModel.find({"projectId":stx})
+            const users=await UserModel.find();
+            const ticket=[]
+            tik.forEach((e)=>{
+                const c=JSON.parse(JSON.stringify(e))
+                c.username=users.find((u)=>u._id==c.userId).name;
+                delete c["__v"]
+                c["id"]=c._id;
+                delete c["_id"]
+                ticket.push(c)
+            })
+        res.send({"info":ls,"tickets":ticket})
+        }
+        else{
+            const id=(await Auth.getData(req.cookies.Authorization)).id;
+            const res2=await TicketModel.find({"userId":id,"projectId":stx});
+            if(res2.length===0){
+                res.status(404).send({"msg":"not found"})
+                return;
+            }
+            else{
+                const res2edit=[]
+                res2.forEach((e)=>{
+                    const c=JSON.parse(JSON.stringify(e))
+                    delete c["__v"]
+                    c["id"]=c._id;
+                    delete c["_id"]
+                    delete c["userId"];
+                    delete c["projectId"];
+                    res2edit.push(c)
+                })
+                res.send({"info":ls,"tickets":res2edit})
+        }
+        }
         }
         catch (e) {
 

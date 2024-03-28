@@ -1,5 +1,6 @@
 import CryptoJS from 'crypto-js';
 import db from "./db.js";
+import UserModel from "../Model/UserModel.js";
 export default class Auth{
     static cookieConfig={
         httpOnly: true,
@@ -35,7 +36,9 @@ export default class Auth{
                 return false;
             }
             const x=await Auth.getData(req.cookies.Authorization)
-            return x.isadmin;
+            const d=await UserModel.findById(x.id);
+
+            return x.isadmin===true && d.isadmin===true;
         }
     }
     static async login(id,username,isadmin) {

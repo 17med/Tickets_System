@@ -15,6 +15,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import {Button} from "@/components/ui/button.tsx";
+import {Link} from "react-router-dom";
 
 function l(x:string){
     if(x.length>8){
@@ -34,7 +35,7 @@ function Elememnt(props){
             <TableCell><Tooltip title={props.id}>{l(props.id)}</Tooltip></TableCell>
             <TableCell align="center">{props.name}</TableCell>
             <TableCell align="center"><Tooltip title={props.dataCrt.toString()}>{props.dataCrt.toString().split("T")[0]}</Tooltip></TableCell>
-            <TableCell align="center"><Button  >more</Button></TableCell>
+            <TableCell align="center"><Button  style={{backgroundColor:"#333333"}} ><Link to={"/dashboard/project/"+props.id}>more</Link></Button></TableCell>
 
 
 

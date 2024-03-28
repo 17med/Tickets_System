@@ -78,4 +78,23 @@ export default class UserMiddleware {
             res.status(400).send({"msg":"bad request"})
         }
     }
+    static deleteuser(req,res,next){
+        if(req.body.id===null || req.body.id===undefined){
+            res.status(400).send({"msg":"bad request"})
+            return;
+        }
+        if(mongoose.isValidObjectId(req.body.id)===false){
+            res.status(400).send({"msg":"bad request"})
+            return;
+        }
+        next()
+    }
+    static Transformstate(req,res,next){
+
+        if(req.body.id===null || req.body.id===undefined){
+            res.status(400).send({"msg":"bad request"})
+            return;
+        }
+        next();
+    }
 }

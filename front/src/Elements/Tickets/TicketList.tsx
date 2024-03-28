@@ -1,7 +1,7 @@
 // @ts-nocheck
 import TableContainer from '@mui/material/TableContainer';
 
-import {Button, Chip, LinearProgress, Tooltip} from "@mui/material"
+import { Chip, LinearProgress, Tooltip} from "@mui/material"
 import {useEffect, useState} from "react";
 import { red } from '@mui/material/colors';
 import {
@@ -14,6 +14,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import {Button} from "@/components/ui/button";
 function l(x:string){
     if(x.length>8){
         const r=x.substring(0, 8)
@@ -38,7 +39,7 @@ function Elememnt(props){
             <TableCell align="center"><Tooltip title={props.date_end.toString().replace("T"," ").replace("Z","")}>{props.date_end.toString().split("T")[0]}</Tooltip></TableCell>
             <TableCell align="center">{props.type}</TableCell>
             <TableCell align="center"><Chip label={props.state}></Chip></TableCell>
-            <TableCell align="center"><Button style={{backgroundColor:"#333333"}} variant={"contained"}>more</Button></TableCell>
+            <TableCell align="center"><Button style={{backgroundColor:"#333333"}} >more</Button></TableCell>
 
 
 
