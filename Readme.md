@@ -8,7 +8,7 @@
 - Security: Custom Token, bcrypt, helmet, cors, Synks
 
 --------------------------------------------------------
-#### update Number v0.1.12 2024/03/27
+#### update Number v0.1.12 2024/03/28
 * Add the ability to promote a normal user to admin or demote an admin to a normal user.
 * Ensure that the owner is protected from normal users who have the ability to promote a normal user to admin.
 * Include a "Show Project" section that displays project details such as name, description, and tickets.
