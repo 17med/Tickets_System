@@ -1,9 +1,12 @@
 // @ts-nocheck
-import {Dialog, DialogContent, DialogTitle, TextField, Button, Snackbar, Alert, Autocomplete, Select, MenuItem} from '@mui/material';
+import {Dialog, DialogContent, DialogTitle, TextField, Snackbar, Alert, Autocomplete, Select, MenuItem} from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import CloseIcon from '@mui/icons-material/Close';
 import {useEffect, useState} from "react";
+import {Button} from "@/components/ui/button.tsx";
 import axios from "axios";
+import {Input} from "@/components/ui/input.tsx";
+import {Textarea} from "@/components/ui/textarea.tsx";
 
 export default function AddProject({open,setopen,setrefrech}:any){
     useEffect(() => {
@@ -150,7 +153,7 @@ export default function AddProject({open,setopen,setrefrech}:any){
         </DialogTitle>
         <DialogContent>
 
-            <table style={{width: "420px", height: "5s00px"}}>
+            <table style={{width: "420px", height: "500px"}}>
                 <tr>
                     <td>
                         <label>Project Name *</label>
@@ -194,7 +197,8 @@ export default function AddProject({open,setopen,setrefrech}:any){
                     </td>
                     <td>
 
-                        <TextField
+                        <Input
+                            placeholder={"Title"}
                             //@ts-ignore
                             onChange={(event:any, value:any)=>{
                             settitle({error:false,value:event.target.value});
@@ -208,6 +212,7 @@ export default function AddProject({open,setopen,setrefrech}:any){
                     </td>
                     <td>
                         <Select fullWidth={true} defaultValue={"Bug"}
+
                                 onChange={(event)=>{
                                     setType(event.target.value);}}
                         >
@@ -223,8 +228,9 @@ export default function AddProject({open,setopen,setrefrech}:any){
                         <label>Date end</label>
                     </td>
                     <td>
-                        <TextField
+                        <Input
                             //@ts-ignore
+                            placeholder={"Date"}
                             onChange={(event:any)=>{
                             setdate_end(event.target.value);}} type={"date"} fullWidth={true}
                         />
@@ -235,7 +241,8 @@ export default function AddProject({open,setopen,setrefrech}:any){
                         <label>Description</label>
                     </td>
                     <td>
-                        <TextField multiline
+                        <Textarea multiline
+                                  className={"-mt-5"}
                                    rows={4}
                             //@ts-ignore
                                    onChange={(event:any)=>{
@@ -245,11 +252,11 @@ export default function AddProject({open,setopen,setrefrech}:any){
 
 
             </table>
-            <Button style={{marginTop: "10px"}} variant="contained" startIcon={<SaveIcon/>} color="success"
+            <Button style={{marginTop: "10px"}} className={"w-full"}  startIcon={<SaveIcon/>} color="success"
                     onClick={() => {
                         verif()
                     }} fullWidth={true}>save</Button>
-            <Button style={{marginTop: "10px"}} variant="contained" onClick={() => {
+            <Button style={{marginTop: "10px"}} className={"w-full"}  variant={"destructive"} onClick={() => {
                 setopen(false)
             }} startIcon={<CloseIcon/>} color="error" fullWidth={true}>cancel</Button>
 

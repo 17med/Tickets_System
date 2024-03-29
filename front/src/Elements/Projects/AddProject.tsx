@@ -136,7 +136,7 @@ export default function AddProject({open,setopen,setrefrech}){
                             }} error={error1} ref={name} label="project name" fullWidth={true}/>
                         </div>
                         <div className="grid w-full mt-2 max-w-sm items-center gap-1.5">
-                            <Label htmlFor="email">Username</Label>
+                            <Label htmlFor="email">Password</Label>
                             <Textarea multiline
                                        rows={4} onChange={() => {
                                 seterror2(false)
