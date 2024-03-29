@@ -1,6 +1,8 @@
 import {useEffect, useState} from "react";
 import Tickets from "@/Elements/Tickets/TicketList2";
 import { useSpring, animated } from 'react-spring';
+import { Separator } from "@/components/ui/separator"
+
 function isValidObjectId(str?:string):boolean{
     // Regex pattern for MongoDB ObjectID
     const objectIdPattern = /^[0-9a-fA-F]{24}$/;
@@ -18,6 +20,7 @@ import { Error } from 'lucide-react/alerts';
 */
 import { Frown } from 'lucide-react';
 import axios from "axios";
+import {Button} from "@/components/ui/button.tsx";
 function A404(){
     return (<div className="flex flex-col  justify-center items-center h-screen -mt-10">
         <Frown className="mb-4 size-20" style={{fontSize:"1000px"}}/>
@@ -49,6 +52,17 @@ function Project(props: any) {
         <br/>
         <br/>
         <Tickets data={props.tickets} isadmin={props.isadmin}/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <div className="align-bottom mt-16">
+        <Separator className="font-bold" />
+        <br/>
+        <Button variant={"destructive"} className={"w-full"}>Delete</Button>
+            <br/><Separator className="font-bold" />
+        </div>
     </div>)
 }
 

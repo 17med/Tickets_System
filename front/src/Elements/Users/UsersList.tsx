@@ -62,7 +62,7 @@ function SetAdmin({element,admin,id,setrefrech}){
                     toast({
                         titel:"success",
 
-                        description:"User is now an admin"})
+                        description:"User is now a normal user"})
                 }
 
         else
@@ -70,7 +70,7 @@ function SetAdmin({element,admin,id,setrefrech}){
                 toast({
                     titel:"success",
 
-                    description:"User is now a normal user"})
+                    description:"User is now an admin"})
 
             }
                 setrefrech()
