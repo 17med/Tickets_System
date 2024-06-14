@@ -50,7 +50,7 @@ This project is a ticket system designed for development teams, utilizing the ME
 
 ## Team
 
-- Ahmed Achour
+- Ahmed Dhia Ben Achour
 - Karim Arfaoui
 
 ## Installation
